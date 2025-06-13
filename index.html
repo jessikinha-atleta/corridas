@@ -66,63 +66,68 @@
 
   <script>
     async function carregarDados() {
-      const resposta = await fetch('resultados.json');
-      const dados = await resposta.json();
+      try {
+        const resposta = await fetch('resultados.json');
+        const dados = await resposta.json();
 
-      const container = document.getElementById('corridas');
-      const resumoEl = document.getElementById('resumo');
+        const container = document.getElementById('corridas');
+        const resumoEl = document.getElementById('resumo');
 
-      let totalProvas = dados.length;
-      let podioGeral = 0;
-      let podioCategoria = 0;
-      let cidadeContagem = {};
-      let eventoContagem = {};
-      let kmTotal = 0;
-      let altimetriaTotal = 0;
-      let tempoTotalSegundos = 0;
+        let totalProvas = dados.length;
+        let podioGeral = 0;
+        let podioCategoria = 0;
+        let cidadeContagem = {};
+        let eventoContagem = {};
+        let kmTotal = 0;
+        let altimetriaTotal = 0;
+        let tempoTotalSegundos = 0;
 
-      dados.forEach(prova => {
-        if (prova.colocacao.includes("Geral")) podioGeral++;
-        else if (prova.colocacao.includes("Categoria")) podioCategoria++;
+        dados.forEach(prova => {
+          if (prova.colocacao.includes("Geral")) podioGeral++;
+          else if (prova.colocacao.includes("Categoria")) podioCategoria++;
 
-        cidadeContagem[prova.cidade] = (cidadeContagem[prova.cidade] || 0) + 1;
-        eventoContagem[prova.evento] = (eventoContagem[prova.evento] || 0) + 1;
+          cidadeContagem[prova.cidade] = (cidadeContagem[prova.cidade] || 0) + 1;
+          eventoContagem[prova.evento] = (eventoContagem[prova.evento] || 0) + 1;
 
-        kmTotal += parseFloat(prova.distancia.replace("K", "")) || 0;
-        altimetriaTotal += parseInt(prova.altimetria.replace("m", "")) || 0;
+          kmTotal += parseFloat(prova.distancia.replace("K", "")) || 0;
+          altimetriaTotal += parseInt(prova.altimetria.replace("m", "")) || 0;
 
-        const [h, m, s] = prova.tempo.split(":").map(Number);
-        tempoTotalSegundos += h * 3600 + m * 60 + s;
+          const [h, m, s] = prova.tempo.split(":").map(Number);
+          tempoTotalSegundos += h * 3600 + m * 60 + s;
 
-        const info = `🏆 ${prova.colocacao}\t🏃🏽‍♀${prova.distancia}\n⌚ ${prova.tempo}      📈 ${prova.altimetria}\n\n📍 ${prova.cidade}\n📅 ${prova.data}`;
+          const info = `🏆 ${prova.colocacao}\t🏃🏽‍♀${prova.distancia}\n⌚ ${prova.tempo}      📈 ${prova.altimetria}\n\n📍 ${prova.cidade}\n📅 ${prova.data}`;
 
-        container.innerHTML += `
-          <div class="prova">
-            <img src="${prova.imagem}" alt="${prova.evento}">
-            <div class="info">${info}</div>
-          </div>
+          container.innerHTML += `
+            <div class="prova">
+              <img src="${prova.imagem}" alt="${prova.evento}">
+              <div class="info">${info}</div>
+            </div>
+          `;
+        });
+
+        function maisFrequente(obj) {
+          return Object.entries(obj).sort((a, b) => b[1] - a[1])[0]?.[0] || "-";
+        }
+
+        const horas = Math.floor(tempoTotalSegundos / 3600);
+        const minutos = Math.floor((tempoTotalSegundos % 3600) / 60);
+
+        const resumoHTML = `
+          <div class="card"><strong>Total de provas:</strong> ${totalProvas}</div>
+          <div class="card"><strong>🏆 Pódios (geral):</strong> ${podioGeral}</div>
+          <div class="card"><strong>🥇 Pódios (categoria):</strong> ${podioCategoria}</div>
+          <div class="card"><strong>📍 Cidade + frequente:</strong> ${maisFrequente(cidadeContagem)}</div>
+          <div class="card"><strong>🏃‍♀ Evento + frequente:</strong> ${maisFrequente(eventoContagem)}</div>
+          <div class="card"><strong>📏 KM percorridos:</strong> ${kmTotal.toFixed(1)}K</div>
+          <div class="card"><strong>📈 Altimetria total:</strong> ${altimetriaTotal}m</div>
+          <div class="card"><strong>⏱ Tempo acumulado:</strong> ${horas}h ${minutos}min</div>
         `;
-      });
 
-      function maisFrequente(obj) {
-        return Object.entries(obj).sort((a, b) => b[1] - a[1])[0]?.[0] || "-";
+        resumoEl.innerHTML = resumoHTML;
+      } catch (erro) {
+        document.body.innerHTML += '<p style="color:red; text-align:center">Erro ao carregar dados. Verifique se o arquivo <code>resultados.json</code> está acessível.</p>';
+        console.error("Erro ao carregar dados:", erro);
       }
-
-      const horas = Math.floor(tempoTotalSegundos / 3600);
-      const minutos = Math.floor((tempoTotalSegundos % 3600) / 60);
-
-      const resumoHTML = `
-        <div class="card"><strong>Total de provas:</strong> ${totalProvas}</div>
-        <div class="card"><strong>🏆 Pódios (geral):</strong> ${podioGeral}</div>
-        <div class="card"><strong>🥇 Pódios (categoria):</strong> ${podioCategoria}</div>
-        <div class="card"><strong>📍 Cidade + frequente:</strong> ${maisFrequente(cidadeContagem)}</div>
-        <div class="card"><strong>🏃‍♀ Evento + frequente:</strong> ${maisFrequente(eventoContagem)}</div>
-        <div class="card"><strong>📏 KM percorridos:</strong> ${kmTotal}K</div>
-        <div class="card"><strong>📈 Altimetria total:</strong> ${altimetriaTotal}m</div>
-        <div class="card"><strong>⏱ Tempo acumulado:</strong> ${horas}h ${minutos}min</div>
-      `;
-
-      resumoEl.innerHTML = resumoHTML;
     }
 
     carregarDados();
