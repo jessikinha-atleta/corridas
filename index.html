@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meus Resultados - Jessikinha</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+    h1 {
+      margin: 40px 0 20px;
+      color: #20603d;
+    }
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-width: 300px;
+      text-align: left;
+    }
+    .card img {
+      width: 100%;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    .info {
+      padding: 15px;
+    }
+    .info strong {
+      color: #333;
+    }
+    .info p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Meus Resultados</h1>
+  <div class="galeria" id="galeria"></div>
+
+  <script>
+    async function carregarResultados() {
+      const response = await fetch('data/resultados.json');
+      const dados = await response.json();
+      const galeria = document.getElementById('galeria');
+
+      dados.forEach(prova => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        card.innerHTML = `
+          <img src="${prova.imagem}" alt="${prova.evento}">
+          <div class="info">
+            <strong>${prova.evento}</strong>
+            <p>🏆 ${prova.colocacao}</p>
+            <p>📏 ${prova.distancia}</p>
+            <p>⏱️ ${prova.tempo}</p>
+            <p>📈 ${prova.altimetria}</p>
+            <p>📍 ${prova.cidade}</p>
+            <p>📅 ${new Date(prova.data).toLocaleDateString('pt-BR')}</p>
+          </div>
+        `;
+
+        galeria.appendChild(card);
+      });
+    }
+
+    carregarResultados();
+  </script>
+</body>
+</html>
