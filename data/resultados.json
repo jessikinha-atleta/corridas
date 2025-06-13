@@ -1,5 +1,25 @@
 [
     {
+        "evento": "Evolution",
+        "colocacao": "1ª Geral",
+        "distancia": "12K",
+        "tempo": "01:18:46",
+        "altimetria": "493m",
+        "cidade": "Itatiaia-RJ",
+        "data": "Junho/2025",
+        "imagem": "img/corrida84.jpg"
+    },
+    {
+        "evento": "Meia Maratona De Paraty",
+        "colocacao": "1ª Geral",
+        "distancia": "10K",
+        "tempo": "00:46:32",
+        "altimetria": "57m",
+        "cidade": "Paraty-RJ",
+        "data": "Maio/2025",
+        "imagem": "img/corrida83.jpg"
+    },
+    {
         "evento": "Trilhas E Montanhas",
         "colocacao": "1ª Geral",
         "distancia": "11K",
@@ -133,8 +153,8 @@
         "evento": "Sai Itamambuca",
         "colocacao": "2ª Geral",
         "distancia": "10K",
-        "tempo": "",
-        "altimetria": "",
+        "tempo": "00:00:00",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Dezembro/2023",
         "imagem": "img/corrida70.jpg"
@@ -184,7 +204,7 @@
         "colocacao": "5ª Geral",
         "distancia": "36K",
         "tempo": "02:42:19",
-        "altimetria": "",
+        "altimetria": "0m",
         "cidade": "Penha-SC",
         "data": "Agosto/2023",
         "imagem": "img/corrida65.jpg"
@@ -203,7 +223,7 @@
         "evento": "Pedra Grande Trail Runners",
         "colocacao": "1ª Geral",
         "distancia": "30K",
-        "tempo": "",
+        "tempo": "00:00:00",
         "altimetria": "1838m",
         "cidade": "Atibaia-SP",
         "data": "Junho/2023",
@@ -213,8 +233,8 @@
         "evento": "Soldado Paulino",
         "colocacao": "2ª Geral",
         "distancia": "21K",
-        "tempo": "",
-        "altimetria": "",
+        "tempo": "00:00:00",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Maio/2023",
         "imagem": "img/corrida62.jpg"
@@ -224,7 +244,7 @@
         "colocacao": "3ª Geral",
         "distancia": "21K",
         "tempo": "01:34:48",
-        "altimetria": "",
+        "altimetria": "0m",
         "cidade": "Paraty-RJ",
         "data": "Maio/2023",
         "imagem": "img/corrida61.jpg"
@@ -263,8 +283,8 @@
         "evento": "Indomit São Bento",
         "colocacao": "1ª Categoria",
         "distancia": "35K",
-        "tempo": "",
-        "altimetria": "",
+        "tempo": "00:00:00",
+        "altimetria": "0m",
         "cidade": "São Bento-SP",
         "data": "Março/2023",
         "imagem": "img/corrida57.jpg"
@@ -344,7 +364,7 @@
         "colocacao": "5ª Geral",
         "distancia": "21K",
         "tempo": "01:33:49",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Paraty-RJ",
         "data": "Maio/2022",
         "imagem": "img/corrida49.jpg"
@@ -604,7 +624,7 @@
         "colocacao": "1ª Categoria",
         "distancia": "10K",
         "tempo": "00:41:20",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Maio/2019",
         "imagem": "img/corrida23.jpg"
@@ -634,7 +654,7 @@
         "colocacao": "1ª Geral",
         "distancia": "10K",
         "tempo": "00:45:32",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Dezembro/2018",
         "imagem": "img/corrida20.jpg"
@@ -644,7 +664,7 @@
         "colocacao": "1ª Categoria",
         "distancia": "9K",
         "tempo": "00:41:28",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Dezembro/2018",
         "imagem": "img/corrida19.jpg"
@@ -664,7 +684,7 @@
         "colocacao": "1ª Geral",
         "distancia": "5K",
         "tempo": "00:22:34",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Novembro/2018",
         "imagem": "img/corrida17.jpg"
@@ -684,7 +704,7 @@
         "colocacao": "3ª Geral",
         "distancia": "10K",
         "tempo": "00:44:46",
-        "altimetria": "",
+        "altimetria": "0m",
         "cidade": "São Sebastião-SP",
         "data": "Setembro/2018",
         "imagem": "img/corrida15.jpg"
@@ -694,7 +714,7 @@
         "colocacao": "5ª Geral",
         "distancia": "7K",
         "tempo": "00:30:41",
-        "altimetria": "",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Junho/2018",
         "imagem": "img/corrida14.jpg"
@@ -704,7 +724,7 @@
         "colocacao": "2ª Categoria",
         "distancia": "10K",
         "tempo": "00:43:03",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Maio/2018",
         "imagem": "img/corrida13.jpg"
@@ -714,7 +734,7 @@
         "colocacao": "4ª Geral",
         "distancia": "21K",
         "tempo": "01:40:00",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Caraguá-SP",
         "data": "Abril/2018",
         "imagem": "img/corrida12.jpg"
@@ -724,7 +744,7 @@
         "colocacao": "2ª Geral",
         "distancia": "5K",
         "tempo": "00:33:30",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Março/2018",
         "imagem": "img/corrida11.jpg"
@@ -734,7 +754,7 @@
         "colocacao": "",
         "distancia": "2K",
         "tempo": "00:24:02",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Maio/2017",
         "imagem": "img/corrida10.jpg"
@@ -744,7 +764,7 @@
         "colocacao": "1ª Categoria",
         "distancia": "21K",
         "tempo": "01:57:35",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Dezembro/2016",
         "imagem": "img/corrida9.jpg"
@@ -754,7 +774,7 @@
         "colocacao": "1ª Geral",
         "distancia": "10K",
         "tempo": "00:45:16",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Setembro/2016",
         "imagem": "img/corrida8.jpg"
@@ -764,7 +784,7 @@
         "colocacao": "1ª Categoria",
         "distancia": "6,5K",
         "tempo": "00:31:42",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Taubaté-SP",
         "data": "Setembro/2016",
         "imagem": "img/corrida7.jpg"
@@ -774,7 +794,7 @@
         "colocacao": "3ª Geral",
         "distancia": "12K",
         "tempo": "01:00:39",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Caraguá-SP",
         "data": "Agosto/2016",
         "imagem": "img/corrida6.jpg"
@@ -794,7 +814,7 @@
         "colocacao": "5ª Geral",
         "distancia": "6,5K",
         "tempo": "00:31:00",
-        "altimetria": "-m",
+        "altimetria": "0m",
         "cidade": "Caraguá-SP",
         "data": "Junho/2016",
         "imagem": "img/corrida4.jpg"
@@ -803,30 +823,10 @@
         "evento": "19ª Prova Soldado Paulino",
         "colocacao": "2ª Categoria",
         "distancia": "10K",
-        "tempo": "-",
-        "altimetria": "-m",
+        "tempo": "00:00:00",
+        "altimetria": "0m",
         "cidade": "Ubatuba-SP",
         "data": "Maio/2016",
         "imagem": "img/corrida3.jpg"
-    },
-    {
-        "evento": "18ª Prova Soldado Paulino",
-        "colocacao": "3ª Geral",
-        "distancia": "10K",
-        "tempo": "-",
-        "altimetria": "-m",
-        "cidade": "Ubatuba-SP",
-        "data": "Maio/2015",
-        "imagem": "img/corrida2.jpg"
-    },
-    {
-        "evento": "11ª Prova Soldado Paulino",
-        "colocacao": "1ª Categoria",
-        "distancia": "8K",
-        "tempo": "-",
-        "altimetria": "-m",
-        "cidade": "Ubatuba-SP",
-        "data": "Junho/2008",
-        "imagem": "img/corrida1.jpg"
     }
 ]
