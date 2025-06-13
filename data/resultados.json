@@ -7,7 +7,7 @@
     "altimetria": "128m",
     "cidade": "Ubatuba - SP",
     "data": "2025-03-10",
-    "imagem": "paraty01.jpg"
+    "imagem": "paraty01.JPG"
   },
   {
     "evento": "Indomit São Bento",
@@ -17,7 +17,7 @@
     "altimetria": "575m",
     "cidade": "São Bento do Sapucaí - SP",
     "data": "2025-04-15",
-    "imagem": "paraty02.jpg"
+    "imagem": "paraty02.JPG"
   },
   {
     "evento": "Paraty Trail Run",
@@ -27,6 +27,6 @@
     "altimetria": "360m",
     "cidade": "Paraty - RJ",
     "data": "2025-05-20",
-    "imagem": "paraty03.jpg"
+    "imagem": "paraty03.JPG"
   }
 ]
