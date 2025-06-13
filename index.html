@@ -3,83 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meus Resultados - Jessikinha</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <title>Meus Resultados</title>
   <style>
     body {
-      font-family: 'Montserrat', sans-serif;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f7f7f7;
       margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-      text-align: center;
+      padding: 20px;
+      color: #222;
     }
+
     h1 {
-      margin: 40px 0 20px;
-      color: #20603d;
+      text-align: center;
+      color: #205030;
     }
-    .galeria {
+
+    .grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
-      padding: 20px;
+      margin-top: 30px;
     }
+
     .card {
-      background-color: #fff;
+      background: white;
       border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      max-width: 300px;
-      text-align: left;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 280px;
+      overflow: hidden;
+      text-align: center;
+      padding-bottom: 15px;
     }
+
     .card img {
       width: 100%;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
+      height: 180px;
+      object-fit: cover;
     }
-    .info {
-      padding: 15px;
-    }
-    .info strong {
+
+    .evento {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 10px 0 6px;
       color: #333;
     }
-    .info p {
+
+    .info {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-top: 5px;
+    }
+
+    .linha {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
       margin: 4px 0;
-      font-size: 14px;
+    }
+
+    .linha span {
+      white-space: nowrap;
     }
   </style>
 </head>
 <body>
   <h1>Meus Resultados</h1>
-  <div class="galeria" id="galeria"></div>
+
+  <div class="grid" id="resultados"></div>
 
   <script>
-    async function carregarResultados() {
-      const response = await fetch('data/resultados.json');
-      const dados = await response.json();
-      const galeria = document.getElementById('galeria');
-
-      dados.forEach(prova => {
-        const card = document.createElement('div');
-        card.className = 'card';
-
-        card.innerHTML = `
-          <img src="${prova.imagem}" alt="${prova.evento}">
-          <div class="info">
-            <strong>${prova.evento}</strong>
-            <p>🏆 ${prova.colocacao}</p>
-            <p>📏 ${prova.distancia}</p>
-            <p>⏱️ ${prova.tempo}</p>
-            <p>📈 ${prova.altimetria}</p>
-            <p>📍 ${prova.cidade}</p>
-            <p>📅 ${new Date(prova.data).toLocaleDateString('pt-BR')}</p>
-          </div>
-        `;
-
-        galeria.appendChild(card);
-      });
+    function formataData(dataISO) {
+      const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+      const data = new Date(dataISO);
+      return `${meses[data.getMonth()]}/${data.getFullYear()}`;
     }
 
-    carregarResultados();
+    fetch("data/resultados.json")
+      .then(res => res.json())
+      .then(dados => {
+        const container = document.getElementById("resultados");
+        dados.forEach(prova => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${prova.imagem}" alt="${prova.evento}">
+            <div class="evento">${prova.evento}</div>
+            <div class="info">
+              <div class="linha">
+                <span>🏆️ ${prova.colocacao}</span>
+                <span>🏃🏽‍♀ ${prova.distancia}</span>
+              </div>
+              <div class="linha">
+                <span>⌚ ${prova.tempo}</span>
+                <span>📈 ${prova.altimetria}</span>
+              </div>
+              <div class="linha">
+                <span>📍 ${prova.cidade}</span>
+              </div>
+              <div class="linha">
+                <span>📅 ${formataData(prova.data)}</span>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      });
   </script>
 </body>
 </html>
