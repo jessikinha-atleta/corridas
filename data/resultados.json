@@ -1,0 +1,32 @@
+[
+  {
+    "evento": "Desafio 28 Praias - Costa Norte",
+    "colocacao": "1º Geral",
+    "distancia": "13K",
+    "tempo": "01:01:35",
+    "altimetria": "128m",
+    "cidade": "Ubatuba - SP",
+    "data": "2025-03-10",
+    "imagem": "paraty01.jpg"
+  },
+  {
+    "evento": "Indomit São Bento",
+    "colocacao": "2º Geral",
+    "distancia": "14K",
+    "tempo": "01:20:17",
+    "altimetria": "575m",
+    "cidade": "São Bento do Sapucaí - SP",
+    "data": "2025-04-15",
+    "imagem": "paraty02.jpg"
+  },
+  {
+    "evento": "Paraty Trail Run",
+    "colocacao": "1º Geral",
+    "distancia": "14K",
+    "tempo": "01:26:13",
+    "altimetria": "360m",
+    "cidade": "Paraty - RJ",
+    "data": "2025-05-20",
+    "imagem": "paraty03.jpg"
+  }
+]
