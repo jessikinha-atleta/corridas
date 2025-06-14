@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Corridas da Jessikinha</title>
+  <title>Meus Resultados</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -59,7 +59,7 @@
 <body>
   <h1>Corridas da Jessikinha</h1>
   <div class="resumo-geral">
-    <h2>🏁 Resumo das Corridas</h2>
+    <h2>@jessikinha.atleta</h2>
     <div class="cards-resumo" id="resumo"></div>
   </div>
   <div class="grid" id="corridas"></div>
@@ -113,13 +113,13 @@
         const minutos = Math.floor((tempoTotalSegundos % 3600) / 60);
 
         const resumoHTML = `
-          <div class="card"><strong>Total de provas:</strong> ${totalProvas}</div>
+          <div class="card"><strong>Provas Disputadas:</strong> ${totalProvas}</div>
           <div class="card"><strong>🏆 Pódios (geral):</strong> ${podioGeral}</div>
           <div class="card"><strong>🥇 Pódios (categoria):</strong> ${podioCategoria}</div>
-          <div class="card"><strong>📍 Cidade + frequente:</strong> ${maisFrequente(cidadeContagem)}</div>
-          <div class="card"><strong>🏃‍♀ Evento + frequente:</strong> ${maisFrequente(eventoContagem)}</div>
+          <div class="card"><strong>📍 Cidade onde mais competi:</strong> ${maisFrequente(cidadeContagem)}</div>
+          <div class="card"><strong>🏃‍♀ Provas que mais participei:</strong> ${maisFrequente(eventoContagem)}</div>
           <div class="card"><strong>📏 KM percorridos:</strong> ${kmTotal.toFixed(1)}K</div>
-          <div class="card"><strong>📈 Altimetria total:</strong> ${altimetriaTotal}m</div>
+          <div class="card"><strong>📈 Altimetria acumulada:</strong> ${altimetriaTotal}m</div>
           <div class="card"><strong>⏱ Tempo acumulado:</strong> ${horas}h ${minutos}min</div>
         `;
 
