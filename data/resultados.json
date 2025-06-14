@@ -7,7 +7,7 @@
         "altimetria": "493m",
         "cidade": "Itatiaia-RJ",
         "data": "Junho/2025",
-        "imagem": "img/corrida84.jpg"
+        "imagem": "img/corrida85.jpg"
     },
     {
         "evento": "Meia Maratona De Paraty",
@@ -17,7 +17,7 @@
         "altimetria": "57m",
         "cidade": "Paraty-RJ",
         "data": "Maio/2025",
-        "imagem": "img/corrida83.jpg"
+        "imagem": "img/corrida84.jpg"
     },
     {
         "evento": "Trilhas E Montanhas",
@@ -27,17 +27,17 @@
         "altimetria": "340m",
         "cidade": "Lagoinha-SP",
         "data": "Abril/2025",
-        "imagem": "img/corrida82.jpg"
+        "imagem": "img/corrida83.jpg"
     },
     {
-        "evento": "DESAFIO 28 PRAIAS COSTA NORTE",
+        "evento": "Desafio 28 Praias Costa Norte",
         "colocacao": "1ª Geral",
         "distancia": "14K",
         "tempo": "01:01:35",
         "altimetria": "128m",
         "cidade": "Ubatuba-SP",
         "data": "Abril/2025",
-        "imagem": "img/corrida81.jpg"
+        "imagem": "img/corrida82.jpg"
     },
     {
         "evento": "Indomit São Bento",
@@ -47,7 +47,7 @@
         "altimetria": "572m",
         "cidade": "São Bento-SP",
         "data": "Março/2025",
-        "imagem": "img/corrida80.jpg"
+        "imagem": "img/corrida81.jpg"
     },
     {
         "evento": "Paraty Trail Run",
@@ -57,7 +57,7 @@
         "altimetria": "360m",
         "cidade": "Paraty-RJ",
         "data": "Dezembro/2024",
-        "imagem": "img/corrida79.jpg"
+        "imagem": "img/corrida80.jpg"
     },
     {
         "evento": "Desafio 28 Praias Costa Central",
@@ -67,27 +67,27 @@
         "altimetria": "671m",
         "cidade": "Ubatuba-SP",
         "data": "Novembro/2024",
-        "imagem": "img/corrida78.jpg"
+        "imagem": "img/corrida79.jpg"
     },
     {
-        "evento": "Wtr Campos",
+        "evento": "WTR Campos",
         "colocacao": "4ª Geral",
         "distancia": "19K",
         "tempo": "02:17:29",
         "altimetria": "737m",
         "cidade": "Campos Do Jordão-SP",
         "data": "Outubro/2024",
-        "imagem": "img/corrida77.jpg"
+        "imagem": "img/corrida78.jpg"
     },
     {
-        "evento": "Utmb",
+        "evento": "UTMB Paraty",
         "colocacao": "4ª Geral",
         "distancia": "26K",
         "tempo": "02:52:37",
         "altimetria": "900m",
         "cidade": "Paraty-RJ",
         "data": "Setembro/2024",
-        "imagem": "img/corrida76.jpg"
+        "imagem": "img/corrida77.jpg"
     },
     {
         "evento": "Trail Run Mountain Independência",
@@ -97,7 +97,7 @@
         "altimetria": "476m",
         "cidade": "Ubatuba-SP",
         "data": "Setembro/2024",
-        "imagem": "img/corrida75.jpg"
+        "imagem": "img/corrida76.jpg"
     },
     {
         "evento": "La Mision Serra Fina",
@@ -107,7 +107,7 @@
         "altimetria": "1786m",
         "cidade": "Passa Quatro-MG",
         "data": "Agosto/2024",
-        "imagem": "img/corrida74.jpg"
+        "imagem": "img/corrida75.jpg"
     },
     {
         "evento": "Xterra",
@@ -117,7 +117,7 @@
         "altimetria": "549m",
         "cidade": "Caraguá-SP",
         "data": "Julho/2024",
-        "imagem": "img/corrida73.jpg"
+        "imagem": "img/corrida74.jpg"
     },
     {
         "evento": "Evolution",
@@ -127,7 +127,7 @@
         "altimetria": "516m",
         "cidade": "Itatiaia-RJ",
         "data": "Junho/2024",
-        "imagem": "img/corrida72.jpg"
+        "imagem": "img/corrida73.jpg"
     },
     {
         "evento": "Desafio 28 Praias",
@@ -137,7 +137,7 @@
         "altimetria": "1414m",
         "cidade": "Ubatuba-SP",
         "data": "Abril/2024",
-        "imagem": "img/corrida71.jpg"
+        "imagem": "img/corrida72.jpg"
     },
     {
         "evento": "Patagônia Run",
@@ -150,7 +150,7 @@
         "imagem": "img/corrida71.jpg"
     },
     {
-        "evento": "Sai Itamambuca",
+        "evento": "SAI Itamambuca",
         "colocacao": "2ª Geral",
         "distancia": "10K",
         "tempo": "00:00:00",
@@ -160,7 +160,7 @@
         "imagem": "img/corrida70.jpg"
     },
     {
-        "evento": "Ktr",
+        "evento": "KTR",
         "colocacao": "1ª Geral",
         "distancia": "24K",
         "tempo": "02:44:32",
@@ -190,7 +190,7 @@
         "imagem": "img/corrida67.jpg"
     },
     {
-        "evento": "Wtr Campos",
+        "evento": "WTR Campos",
         "colocacao": "1ª Categoria",
         "distancia": "18K",
         "tempo": "02:11:59",
@@ -250,7 +250,7 @@
         "imagem": "img/corrida61.jpg"
     },
     {
-        "evento": "Ktr",
+        "evento": "KTR",
         "colocacao": "1ª Geral",
         "distancia": "25K",
         "tempo": "04:40:30",
@@ -270,7 +270,7 @@
         "imagem": "img/corrida59.jpg"
     },
     {
-        "evento": "Lptr",
+        "evento": "LPTR",
         "colocacao": "1ª Geral",
         "distancia": "28K",
         "tempo": "03:40:51",
@@ -310,7 +310,7 @@
         "imagem": "img/corrida55.jpg"
     },
     {
-        "evento": "Lptr",
+        "evento": "LPTR",
         "colocacao": "1ª Geral",
         "distancia": "27K",
         "tempo": "02:48:53",
@@ -400,7 +400,7 @@
         "imagem": "img/corrida46.jpg"
     },
     {
-        "evento": "Lptr",
+        "evento": "LPTR",
         "colocacao": "4ª Geral",
         "distancia": "21K",
         "tempo": "03:37:31",
@@ -420,7 +420,7 @@
         "imagem": "img/corrida44.jpg"
     },
     {
-        "evento": "Ktr",
+        "evento": "KTR",
         "colocacao": "1ª Geral",
         "distancia": "23K",
         "tempo": "02:45:42",
@@ -430,7 +430,7 @@
         "imagem": "img/corrida43.jpg"
     },
     {
-        "evento": "Igt",
+        "evento": "IGT",
         "colocacao": "1ª Geral",
         "distancia": "23K",
         "tempo": "01:49:44",
