@@ -82,8 +82,6 @@
         let totalProvas = dados.length;
         let podioGeral = 0;
         let podioCategoria = 0;
-        let cidadeContagem = {};
-        let eventoContagem = {};
         let kmTotal = 0;
         let altimetriaTotal = 0;
         let tempoTotalSegundos = 0;
@@ -91,9 +89,6 @@
         dados.forEach(prova => {
           if (prova.colocacao.includes("Geral")) podioGeral++;
           else if (prova.colocacao.includes("Categoria")) podioCategoria++;
-
-          cidadeContagem[prova.cidade] = (cidadeContagem[prova.cidade] || 0) + 1;
-          eventoContagem[prova.evento] = (eventoContagem[prova.evento] || 0) + 1;
 
           kmTotal += parseFloat(prova.distancia.replace("K", "")) || 0;
           altimetriaTotal += parseInt(prova.altimetria.replace("m", "")) || 0;
@@ -112,10 +107,6 @@
           `;
         });
 
-        function maisFrequente(obj) {
-          return Object.entries(obj).sort((a, b) => b[1] - a[1])[0]?.[0] || "-";
-        }
-
         const horas = Math.floor(tempoTotalSegundos / 3600);
         const minutos = Math.floor((tempoTotalSegundos % 3600) / 60);
 
@@ -123,8 +114,6 @@
           <div class="card"><strong>Provas Disputadas:</strong> ${totalProvas}</div>
           <div class="card"><strong>🏆 Pódios (geral):</strong> ${podioGeral}</div>
           <div class="card"><strong>🥇 Pódios (categoria):</strong> ${podioCategoria}</div>
-          <div class="card"><strong>📍 Cidade onde mais competi:</strong> ${maisFrequente(cidadeContagem)}</div>
-          <div class="card"><strong>🏃‍♀ Provas que mais participei:</strong> ${maisFrequente(eventoContagem)}</div>
           <div class="card"><strong>📏 KM percorridos:</strong> ${kmTotal.toFixed(1)}K</div>
           <div class="card"><strong>📈 Altimetria acumulada:</strong> ${altimetriaTotal}m</div>
           <div class="card"><strong>⏱ Tempo acumulado:</strong> ${horas}h ${minutos}min</div>
