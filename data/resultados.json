@@ -1,4 +1,34 @@
 [
+                {
+        "evento": "Caraguá Night Run",
+        "colocacao": "1ª Geral",
+        "distancia": "10,04K",
+        "tempo": "00:43:44",
+        "altimetria": "16m",
+        "cidade": "Caraguá",
+        "data": "Dezembro/2025",
+        "imagem": "img/2025_10_Desafio28.jpg"
+    },
+                {
+        "evento": "Desafio 28 Praias Etapa Lua",
+        "colocacao": "1ª Geral",
+        "distancia": "9,22K",
+        "tempo": "00:54:19",
+        "altimetria": "121m",
+        "cidade": "Ubatuba",
+        "data": "Novembro/2025",
+        "imagem": "img/2025_10_Desafio28.jpg"
+    },
+                {
+        "evento": "Corrida do Pantanal",
+        "colocacao": "9ª Categoria",
+        "distancia": "21,21K",
+        "tempo": "01:44:57",
+        "altimetria": "244m",
+        "cidade": "Campo Grande-MS",
+        "data": "Outubro/2025",
+        "imagem": "img/2025_10_Desafio28.jpg"
+    },
         {
         "evento": "Desafio 28 Praias Costa Central",
         "colocacao": "1ª Geral",
