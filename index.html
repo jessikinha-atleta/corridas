@@ -3,131 +3,2323 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meus Resultados</title>
+  <title>Jessikinha Atleta - Resultados</title>
   <link rel="icon" href="https://github.com/jessikinha-atleta/minhasrifas/raw/main/faviconjeh.png" type="image/png">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Chart.js para gráficos -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
+    :root {
+      --primary: #FF5A5F;
+      --secondary: #00A699;
+      --dark: #2D2926;
+      --light: #F7F7F7;
+      --accent: #FFB400;
+      --gray: #767676;
+      --light-gray: #E8E8E8;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * {
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      box-sizing: border-box;
     }
-    h1, h2 {
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+    }
+
+    .logo-text h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .logo-text p {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .social-btn.statistics {
+      background: linear-gradient(45deg, #8a2387, #e94057, #f27121);
+      color: white;
+    }
+
+    .social-btn.supporters {
+      background: linear-gradient(45deg, #4A00E0, #8E2DE2);
+      color: white;
+    }
+
+    .social-btn.about {
+      background: linear-gradient(45deg, #8E44AD, #3498DB);
+      color: white;
+   }
+
+    .social-btn.instagram {
+      background: linear-gradient(45deg, #405DE6, #833AB4, #C13584, #E1306C, #FD1D1D);
+      color: white;
+    }
+
+    .social-btn.utmb {
+      background: var(--dark);
+      color: white;
+    }
+
+    .social-btn.itra {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(45, 41, 38, 0.9), rgba(45, 41, 38, 0.9)), url('https://lh3.googleusercontent.com/d/1-RQyWdz4E7B0Ybs3NN63ZzCAkfc5MOxV');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 60px 0;
       text-align: center;
-      color: #333;
+      margin-bottom: 0;
     }
-    .resumo-geral {
+
+    .hero h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+
+    .highlight-stats {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .stat-circle {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      padding: 10px;
+    }
+
+    .stat-circle .number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .stat-circle .label {
+      font-size: 1rem;
+      margin-top: 8px;
+      opacity: 0.9;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    /* Seções Expandidas */
+    .expanded-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px auto;
+      box-shadow: var(--card-shadow);
+      max-width: 1400px;
+    }
+
+    .expanded-section.hidden {
+      display: none;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .section-header h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-header h3 i {
+      color: var(--primary);
+    }
+
+    .close-section {
+      background: var(--light-gray);
+      color: var(--dark);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-section:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Filtros */
+    .filters-section {
+      background: var(--light);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .filters-section h3 {
+      font-family: 'Montserrat', sans-serif;
+      margin-bottom: 20px;
+      color: var(--dark);
+      font-size: 1.4rem;
+    }
+
+    .filter-controls {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-group label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    select {
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: 2px solid var(--light-gray);
+      background: white;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      color: var(--dark);
+      transition: var(--transition);
+      min-width: 180px;
+    }
+
+    select:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+
+    .reset-btn {
+      background: var(--light-gray);
+      color: var(--dark);
+      border: none;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 25px;
+    }
+
+    .reset-btn:hover {
+      background: var(--gray);
+      color: white;
+    }
+
+    /* Cards de Resumo */
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
       margin-bottom: 40px;
     }
-    .cards-resumo {
+
+    .summary-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: var(--card-shadow);
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: var(--transition);
     }
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 16px 24px;
-      min-width: 180px;
-      font-size: 16px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    .summary-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
-    .grid {
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .summary-card h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .summary-card .value {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+
+    .summary-card .unit {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-top: 5px;
+    }
+
+    /* Gráficos */
+    .charts-section {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
     }
-    .prova {
-      background: #fff;
-      border-radius: 12px;
-      padding: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    .chart-container {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .chart-container h3 {
+      font-family: 'Montserrat', sans-serif;
+      margin-bottom: 20px;
+      color: var(--dark);
+      font-size: 1.4rem;
+    }
+
+    .chart-wrapper {
+      height: 300px;
+      position: relative;
+    }
+
+    /* Seção de Apoiadores - Atualizada com Carrossel */
+    .supporters-section {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .supporters-wrapper {
+      position: relative;
+      margin: 30px 0;
+    }
+
+    .supporters-carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 30px 20px;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .supporters-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--primary);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-btn:hover {
+      background: var(--secondary);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-btn.prev {
+      left: -25px;
+    }
+
+    .carousel-btn.next {
+      right: -25px;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--light-gray);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .carousel-dot.active {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .supporter-logo {
+      flex: 0 0 auto;
+      width: 200px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+    }
+
+    .supporter-logo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .supporter-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .pix-section {
+      background: linear-gradient(135deg, #32CD32, #228B22);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 40px;
       text-align: center;
     }
-    .prova img {
+
+    .pix-section h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .pix-key {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.3rem;
+      margin: 20px 0;
+      word-break: break-all;
+    }
+
+    /* Seção Sobre Mim */
+    .about-section {
+      margin-bottom: 40px;
+    }
+
+    .about-content {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 30px;
+    }
+
+    .about-section h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .about-section p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .achievements-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .achievement-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--light);
+      padding: 15px 20px;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary);
+      transition: var(--transition);
+    }
+
+    .achievement-item:hover {
+      background: #f0f0f0;
+      transform: translateX(5px);
+    }
+
+    .achievement-info {
+      flex: 1;
+      text-align: left;
+    }
+
+    .achievement-info h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--dark);
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+
+    .achievement-meta {
+      display: flex;
+      gap: 20px;
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+
+    .achievement-position {
+      font-weight: 700;
+      color: #FFD700;
+      font-size: 1.1rem;
+      white-space: nowrap;
+      margin-left: 20px;
+    }
+
+    .partnership-section {
+      background: linear-gradient(135deg, var(--primary), #FF8A80);
+      color: white;
+      padding: 40px;
+      border-radius: 15px;
+      margin-top: 40px;
+    }
+
+    .partnership-section h3 {
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    /* Grid de Provas */
+    .races-section {
+      margin-top: 40px;
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
+      color: var(--primary);
+    }
+
+    .races-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .race-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+    }
+
+    .race-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .race-image {
+      height: 200px;
       width: 100%;
-      aspect-ratio: 3 / 2;
       object-fit: cover;
-      border-radius: 8px;
     }
-    .evento {
-      font-weight: bold;
-      margin: 10px 0 5px;
-      font-size: 1.05rem;
-      color: #222;
+
+    .race-content {
+      padding: 25px;
     }
-    .info {
-      white-space: pre-line;
-      margin-top: 8px;
+
+    .race-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: var(--dark);
+    }
+
+    .race-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .meta-item i {
+      color: var(--primary);
+      width: 16px;
+    }
+
+    .race-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      background: var(--light);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--secondary);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 5px;
+    }
+
+    /* Estilos para pódios */
+    .gold {
+      color: #FFD700 !important;
+    }
+    
+    .silver {
+      color: #C0C0C0 !important;
+    }
+    
+    .bronze {
+      color: #CD7F32 !important;
+    }
+    
+    .podium4 {
+      color: #8A2BE2 !important;
+    }
+    
+    .podium5 {
+      color: #5F9EA0 !important;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+    }
+
+    .copyright {
+      color: var(--light-gray);
+      font-size: 0.9rem;
+    }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2rem;
+      color: var(--gray);
+    }
+
+    .loading i {
+      color: var(--primary);
+      margin-right: 10px;
+    }
+
+    /* Mensagem de erro */
+    .error-message {
+      background: #ffebee;
+      color: #c62828;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+      border-left: 4px solid #c62828;
+    }
+
+    /* Responsividade */
+    @media (max-width: 1100px) {
+      .charts-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .chart-container {
+        min-width: 100%;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .header-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .social-links {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .stat-circle {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .stat-circle .number {
+        font-size: 2rem;
+      }
+      
+      .stat-circle .label {
+        font-size: 0.9rem;
+      }
+      
+      .races-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .filters-section {
+        padding: 20px;
+      }
+      
+      .filter-controls {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .filter-group {
+        width: 100%;
+      }
+      
+      select {
+        width: 100%;
+      }
+      
+      .charts-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .chart-container {
+        min-width: 100%;
+        padding: 20px;
+      }
+      
+      .about-content {
+        padding: 25px;
+      }
+      
+      .social-btn span {
+        display: inline;
+      }
+      
+      .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      
+      .carousel-btn.prev {
+        left: -15px;
+      }
+      
+      .carousel-btn.next {
+        right: -15px;
+      }
+      
+      .achievement-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .achievement-position {
+        margin-left: 0;
+        align-self: flex-end;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .social-btn span {
+        display: none;
+      }
+      
+      .social-btn {
+        padding: 12px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        justify-content: center;
+      }
+      
+      .highlight-stats {
+        gap: 20px;
+      }
+      
+      .stat-circle {
+        width: 110px;
+        height: 110px;
+      }
+      
+      .summary-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .supporter-logo {
+        width: 160px;
+        height: 100px;
+      }
+      
+      .carousel-btn {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 40px 0;
+      }
+      
+      .highlight-stats {
+        gap: 15px;
+      }
+      
+      .stat-circle {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .stat-circle .number {
+        font-size: 1.6rem;
+      }
+      
+      .stat-circle .label {
+        font-size: 0.8rem;
+      }
+      
+      .expanded-section {
+        padding: 20px;
+      }
+      
+      .partnership-section {
+        padding: 25px;
+      }
+      
+      .supporter-logo {
+        width: 140px;
+        height: 90px;
+      }
+      
+      .achievement-meta {
+        flex-direction: column;
+        gap: 5px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Meus Resultados</h1>
-  <div class="resumo-geral">
-    <h2>@jessikinha.atleta</h2>
-    <div class="cards-resumo" id="resumo"></div>
-  </div>
-  <div class="grid" id="corridas"></div>
+  <!-- Header -->
+  <header>
+    <div class="container header-content">
+      <div class="logo-section">
+        <img src="https://lh3.googleusercontent.com/d/1RuWxsWDaxQBUjmAzQpJIx0WhFJYbY0Ld" alt="Logo Jessikinha" class="logo-img">
+        <div class="logo-text">
+          <h1>Jessikinha Atleta</h1>
+          <p>Resultados e Estatísticas</p>
+        </div>
+      </div>
+      <div class="social-links">
+        <a href="#" id="statistics-btn" class="social-btn statistics">
+          <i class="fas fa-chart-bar"></i>
+          <span>Estatísticas</span>
+        </a>
+        <a href="#" id="supporters-btn" class="social-btn supporters">
+          <i class="fas fa-handshake"></i>
+          <span>Apoiadores</span>
+        </a>
+	<a href="#" id="about-btn" class="social-btn about">
+	  <i class="fas fa-user"></i>
+	  <span>Sobre Mim</span>
+	</a>
+        <a href="https://instagram.com/jessikinha.atleta" target="_blank" class="social-btn instagram">
+          <i class="fab fa-instagram"></i>
+          <span>Instagram</span>
+        </a>
+        <a href="https://utmb.world/runner/3736681.jessica.dosreis" target="_blank" class="social-btn utmb">
+          <i class="fas fa-mountain"></i>
+          <span>UTMB</span>
+        </a>
+        <a href="https://itra.run/api/RunnerSpace/GetRunnerSpace?memberString=1JJq9jk19dQ%2FGSmKdsjhgQ%3D%3D" target="_blank" class="social-btn itra">
+          <i class="fas fa-running"></i>
+          <span>ITRA</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h2>Minha Jornada nas Trilhas</h2>
+      <p>Acompanhe minha trajetória nas corridas. Cada passo conta uma história de superação!</p>
+      <div class="highlight-stats" id="highlight-stats">
+        <!-- Os dados serão preenchidos pelo JavaScript -->
+        <div class="stat-circle">
+          <div class="number">0</div>
+          <div class="label">Provas</div>
+        </div>
+        <div class="stat-circle">
+          <div class="number">0</div>
+          <div class="label">Km Percorridos</div>
+        </div>
+        <div class="stat-circle">
+          <div class="number">0</div>
+          <div class="label">Pódios Geral</div>
+        </div>
+        <div class="stat-circle">
+          <div class="number">0h</div>
+          <div class="label">Tempo Total</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estatísticas Expandidas -->
+  <section id="expanded-stats" class="expanded-section hidden">
+    <div class="container">
+      <div class="section-header">
+        <h3><i class="fas fa-chart-bar"></i> Estatísticas Detalhadas</h3>
+        <button class="close-section" id="close-stats">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <!-- Filtros -->
+      <section class="filters-section">
+        <h3>Filtrar Resultados</h3>
+        <div class="filter-controls">
+          <div class="filter-group">
+            <label for="year-filter">Filtrar por Ano:</label>
+            <select id="year-filter">
+              <option value="all">Todos os Anos</option>
+              <!-- Os anos serão preenchidos dinamicamente -->
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="type-filter">Filtrar por Tipo:</label>
+            <select id="type-filter">
+              <option value="all">Todos os Tipos</option>
+              <option value="trail">Trail</option>
+              <option value="rua">Rua</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="podium-filter">Filtrar por Resultado:</label>
+            <select id="podium-filter">
+              <option value="all">Todos os Resultados</option>
+              <option value="podium">Apenas Pódios (1º-5º)</option>
+              <option value="top10">Top 10</option>
+            </select>
+          </div>
+        </div>
+        <button class="reset-btn" id="reset-filters">
+          <i class="fas fa-redo-alt"></i> Limpar Filtros
+        </button>
+      </section>
+
+      <!-- Cards de Resumo -->
+      <section class="summary-cards" id="summary-cards">
+        <!-- Os cards serão preenchidos pelo JavaScript -->
+        <div class="loading">
+          <i class="fas fa-spinner fa-spin"></i> Carregando dados...
+        </div>
+      </section>
+
+      <!-- Gráficos -->
+      <section class="charts-section">
+        <div class="chart-container">
+          <h3><i class="fas fa-chart-line"></i> Desempenho por Ano</h3>
+          <div class="chart-wrapper">
+            <canvas id="yearlyChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-container">
+          <h3><i class="fas fa-trophy"></i> Distribuição de Pódios</h3>
+          <div class="chart-wrapper">
+            <canvas id="podiumChart"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- Seção de Apoiadores -->
+  <section id="supporters-section" class="expanded-section hidden">
+    <div class="container">
+      <div class="section-header">
+        <h3><i class="fas fa-handshake"></i> Apoiadores</h3>
+        <button class="close-section" id="close-supporters">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="supporters-section">
+        <h3 style="margin-bottom: 20px;">Agradecimentos Especiais</h3>
+        <p style="max-width: 800px; margin: 0 auto 30px; font-size: 1.1rem;">
+          Minha jornada só é possível graças ao apoio de empresas e pessoas que acreditam no meu potencial. 
+          Cada um dos apoiadores abaixo faz parte da minha história e contribui diretamente para minhas conquistas. 
+          Muito obrigada por fazerem parte desta trajetória!
+        </p>
+        
+        <div class="supporters-wrapper">
+          <button class="carousel-btn prev">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="supporters-carousel" id="supporters-carousel">
+            <!-- Logos serão adicionadas via JavaScript -->
+            <div class="loading">
+              <i class="fas fa-spinner fa-spin"></i> Carregando apoiadores...
+            </div>
+          </div>
+          <button class="carousel-btn next">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+          <div class="carousel-dots" id="carousel-dots">
+            <!-- Pontos do carrossel serão adicionados via JavaScript -->
+          </div>
+        </div>
+        
+        <div class="pix-section">
+          <h4>Também quer ajudar um atleta? Toda ajuda é bem-vinda!</h4>
+          <p style="margin-bottom: 20px; opacity: 0.9;">
+            Sua contribuição ajuda a custear inscrições, equipamentos, viagens e toda a estrutura necessária 
+            para que eu possa continuar competindo e representando nosso país.
+          </p>
+          <div class="pix-key">
+            PIX: <strong> 8e5a217d-7164-4fe5-8745-8a05fad30966 <strong>
+          </div>
+          <p style="font-size: 0.9rem; opacity: 0.8;">
+            (Jéssica dos Reis)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção Sobre Mim -->
+  <section id="about-section" class="expanded-section hidden">
+    <div class="container">
+      <div class="section-header">
+        <h3><i class="fas fa-user"></i> Sobre Mim</h3>
+        <button class="close-section" id="close-about">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="about-section">
+        <div class="about-content">
+          <h3><i class="fas fa-running"></i> Jéssica dos Reis</h3>
+          <p id="age-text">
+            <!-- A idade será calculada automaticamente -->
+            Carregando informações...
+          </p>
+          <p id="career-text">
+            Nos últimos cinco anos, consolidei-me entre as melhores atletas do Brasil, alcançando o Top 10 
+            nacional da categoria por idade e a 9ª colocação nos rankings da UTMB (Ultra-Trail du Mont-Blanc) 
+            e da ITRA (International Trail Running Association) — referências mundiais no trail running.
+          </p>
+          <p id="stats-text">
+            <!-- As estatísticas serão inseridas aqui automaticamente -->
+          </p>
+          <p>
+            Com disciplina, determinação e foco em alta performance, busco constantemente superar meus limites, 
+            enfrentar terrenos desafiadores e construir uma trajetória sólida e consistente nas corridas de montanha.
+          </p>
+        </div>
+
+        <div class="about-content">
+          <h3><i class="fas fa-trophy"></i> Principais Conquistas</h3>
+          <div class="achievements-grid" id="notable-races">
+            <!-- Principais conquistas serão preenchidas via JavaScript -->
+            <div class="loading">
+              <i class="fas fa-spinner fa-spin"></i> Carregando conquistas...
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content">
+          <h3><i class="fas fa-globe-americas"></i> Provas Internacionais</h3>
+          <div class="achievements-grid" id="international-races">
+            <!-- Provas internacionais serão preenchidas via JavaScript -->
+            <div class="loading">
+              <i class="fas fa-spinner fa-spin"></i> Carregando provas internacionais...
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content">
+          <h3><i class="fas fa-medal"></i> Pódio 1ª Geral</h3>
+          <div class="achievements-grid" id="first-place-races">
+            <!-- Provas em 1º lugar serão preenchidas via JavaScript -->
+            <div class="loading">
+              <i class="fas fa-spinner fa-spin"></i> Carregando vitórias...
+            </div>
+          </div>
+        </div>
+
+        <div class="partnership-section">
+          <h3><i class="fas fa-handshake"></i> Seja parceiro de uma atleta!</h3>
+          <p style="margin-bottom: 20px; opacity: 0.95;">
+            Busco parcerias com empresas e instituições que valorizem disciplina, comprometimento, 
+            superação e qualidade de vida. Como atleta focada em desafios e em constante evolução, 
+            acredito que o esporte é uma ferramenta poderosa de conexão com pessoas, fortalecimento 
+            de imagem e inspiração.
+          </p>
+          <p style="margin-bottom: 20px; opacity: 0.95;">
+            Uma parceria pode ocorrer de diferentes formas, como apoio institucional ou incentivo 
+            financeiro, contribuindo diretamente para a continuidade da minha trajetória esportiva. 
+            Em contrapartida, levo o nome da instituição parceira comigo em provas, treinamentos e 
+            ações de divulgação, associando a marca a valores positivos como saúde, constância e alto desempenho.
+          </p>
+          <p style="opacity: 0.95;">
+            Sou atleta amadora e compartilho minha rotina de treinos, competições e conquistas de forma 
+            transparente e próxima. Minha presença nas redes sociais cresce de maneira orgânica, com um 
+            público engajado, e frequentemente sou procurada por pessoas interessadas em conhecer as empresas, 
+            iniciativas e parceiros que apoiam minha jornada esportiva.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Provas -->
+  <main class="container">
+    <section class="races-section">
+      <h2 class="section-title"><i class="fas fa-flag-checkered"></i> Minhas Provas</h2>
+      <div class="races-grid" id="races-grid">
+        <!-- As provas serão preenchidas pelo JavaScript -->
+        <div class="loading">
+          <i class="fas fa-spinner fa-spin"></i> Carregando corridas...
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-links">
+        <a href="#" id="footer-statistics-btn" class="footer-link">
+          <i class="fas fa-chart-bar"></i> Estatísticas
+        </a>
+        <a href="#" id="footer-supporters-btn" class="footer-link">
+          <i class="fas fa-handshake"></i> Apoiadores
+        </a>
+        <a href="#" id="footer-about-btn" class="footer-link">
+          <i class="fas fa-user"></i> Sobre Mim
+        </a>
+        <a href="https://instagram.com/jessikinha.atleta" target="_blank" class="footer-link">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://utmb.world/runner/3736681.jessica.dosreis" target="_blank" class="footer-link">
+          <i class="fas fa-mountain"></i> UTMB
+        </a>
+        <a href="https://itra.run/api/RunnerSpace/GetRunnerSpace?memberString=1JJq9jk19dQ%2FGSmKdsjhgQ%3D%3D" target="_blank" class="footer-link">
+          <i class="fas fa-running"></i> ITRA
+        </a>
+      </div>
+      <p class="copyright">© 2023 Jessikinha Atleta. Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
   <script>
-    async function carregarDados() {
-      try {
-        const resposta = await fetch('data/resultados.json');
-        const dados = await resposta.json();
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbiqs7Qxy2lLb1rnw3JNHX30JXBsAh85o",
+      authDomain: "corridas-ef71c.firebaseapp.com",
+      databaseURL: "https://corridas-ef71c-default-rtdb.firebaseio.com",
+      projectId: "corridas-ef71c",
+      storageBucket: "corridas-ef71c.firebasestorage.app",
+      messagingSenderId: "559122731370",
+      appId: "1:559122731370:web:41e35ce5c1f3082fc29513"
+    };
 
-        const container = document.getElementById('corridas');
-        const resumoEl = document.getElementById('resumo');
+    // Inicializar Firebase
+    try {
+      firebase.initializeApp(firebaseConfig);
+      console.log("Firebase inicializado com sucesso");
+    } catch (error) {
+      console.error("Erro ao inicializar Firebase:", error);
+      showErrorMessage("Erro ao conectar com o banco de dados.");
+    }
+    
+    const database = firebase.database();
 
-        let totalProvas = dados.length;
-        let podioGeral = 0;
-        let podioCategoria = 0;
-        let kmTotal = 0;
-        let altimetriaTotal = 0;
-        let tempoTotalSegundos = 0;
+    // Variáveis globais
+    let allRaces = [];
+    let filteredRaces = [];
+    let availableYears = [];
+    let currentCarouselPage = 0;
 
-        dados.forEach(prova => {
-          if (prova.colocacao.includes("Geral")) podioGeral++;
-          else if (prova.colocacao.includes("Categoria")) podioCategoria++;
+    // Data de nascimento da atleta (20/01/1992)
+    const DATA_NASCIMENTO = '1992-01-20';
 
-          kmTotal += parseFloat(prova.distancia.replace("K", "")) || 0;
-          altimetriaTotal += parseInt(prova.altimetria.replace("m", "")) || 0;
+    // Elementos do DOM
+    const yearFilter = document.getElementById('year-filter');
+    const typeFilter = document.getElementById('type-filter');
+    const podiumFilter = document.getElementById('podium-filter');
+    const resetFiltersBtn = document.getElementById('reset-filters');
+    const summaryCardsEl = document.getElementById('summary-cards');
+    const racesGridEl = document.getElementById('races-grid');
+    const highlightStatsEl = document.getElementById('highlight-stats');
+    
+    // Seções expandidas
+    const expandedStatsEl = document.getElementById('expanded-stats');
+    const supportersSectionEl = document.getElementById('supporters-section');
+    const aboutSectionEl = document.getElementById('about-section');
+    
+    // Elementos Sobre Mim
+    const ageTextEl = document.getElementById('age-text');
+    const careerTextEl = document.getElementById('career-text');
+    const statsTextEl = document.getElementById('stats-text');
+    const notableRacesEl = document.getElementById('notable-races');
+    const internationalRacesEl = document.getElementById('international-races');
+    const firstPlaceRacesEl = document.getElementById('first-place-races');
+    const supportersCarouselEl = document.getElementById('supporters-carousel');
+    const carouselDotsEl = document.getElementById('carousel-dots');
+    
+    // Botões do carrossel
+    const carouselPrevBtn = document.querySelector('.carousel-btn.prev');
+    const carouselNextBtn = document.querySelector('.carousel-btn.next');
+    
+    // Botões de navegação
+    const statisticsBtn = document.getElementById('statistics-btn');
+    const supportersBtn = document.getElementById('supporters-btn');
+    const aboutBtn = document.getElementById('about-btn');
+    const closeStatsBtn = document.getElementById('close-stats');
+    const closeSupportersBtn = document.getElementById('close-supporters');
+    const closeAboutBtn = document.getElementById('close-about');
+    
+    const footerStatisticsBtn = document.getElementById('footer-statistics-btn');
+    const footerSupportersBtn = document.getElementById('footer-supporters-btn');
+    const footerAboutBtn = document.getElementById('footer-about-btn');
+    
+    // Inicializar gráficos
+    let yearlyChart, podiumChart;
 
-          const [h, m, s] = prova.tempo.split(":").map(Number);
-          tempoTotalSegundos += h * 3600 + m * 60 + s;
+    // Função para calcular idade com base na data de nascimento
+    function calcularIdade(dataNascimento) {
+      const hoje = new Date();
+      const nascimento = new Date(dataNascimento);
+      
+      let idade = hoje.getFullYear() - nascimento.getFullYear();
+      const mes = hoje.getMonth() - nascimento.getMonth();
+      
+      // Ajustar se ainda não fez aniversário este ano
+      if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+        idade--;
+      }
+      
+      return idade;
+    }
 
-          const info = `🏆 ${prova.colocacao}\t🏃🏽‍♀${prova.distancia}\n⌚ ${prova.tempo}      📈 ${prova.altimetria}\n\n📍 ${prova.cidade}\n📅 ${prova.data}`;
+    // Funções utilitárias otimizadas
+function roundNumber(num) {
+  return Math.round(num);  // Arredonda para o inteiro mais próximo
+}
 
-          container.innerHTML += `
-            <div class="prova">
-              <img src="${prova.imagem}" alt="${prova.evento}">
-              <h3 class="evento">${prova.evento}</h3>
-              <div class="info">${info}</div>
-            </div>
-          `;
-        });
+    function formatTime(seconds) {
+      if (!seconds) return "0h 0m";
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      return `${hours}h ${minutes}m`;
+    }
 
-        const horas = Math.floor(tempoTotalSegundos / 3600);
-        const minutos = Math.floor((tempoTotalSegundos % 3600) / 60);
+    function extractYear(dateString) {
+      if (!dateString) return new Date().getFullYear().toString();
+      
+      // Tentar extrair o ano de diferentes formatos
+      const yearMatch = dateString.match(/(\d{4})/);
+      if (yearMatch) return yearMatch[1];
+      
+      // Tentar formatos com barras
+      if (dateString.includes('/')) {
+        const parts = dateString.split('/');
+        const lastPart = parts[parts.length - 1];
+        if (lastPart.length === 4) return lastPart;
+      }
+      
+      return new Date().getFullYear().toString();
+    }
 
-        const resumoHTML = `
-          <div class="card"><strong>Provas Disputadas:</strong> ${totalProvas}</div>
-          <div class="card"><strong>🏆 Pódios (geral):</strong> ${podioGeral}</div>
-          <div class="card"><strong>🥇 Pódios (categoria):</strong> ${podioCategoria}</div>
-          <div class="card"><strong>📏 KM percorridos:</strong> ${kmTotal.toFixed(1)}K</div>
-          <div class="card"><strong>📈 Altimetria acumulada:</strong> ${altimetriaTotal}m</div>
-          <div class="card"><strong>⏱ Tempo acumulado:</strong> ${horas}h ${minutos}min</div>
-        `;
+    function parseDistance(distanceStr) {
+      if (!distanceStr) return 0;
+      const cleaned = distanceStr.toString().replace('K', '').replace(',', '.').trim();
+      return parseFloat(cleaned) || 0;
+    }
 
-        resumoEl.innerHTML = resumoHTML;
-      } catch (erro) {
-        document.body.innerHTML += '<p style="color:red; text-align:center">Erro ao carregar dados. Verifique se o arquivo <code>resultados.json</code> está acessível.</p>';
-        console.error("Erro ao carregar dados:", erro);
+    function parseElevation(elevationStr) {
+      if (!elevationStr) return 0;
+      const cleaned = elevationStr.toString().replace('m', '').replace('+', '').trim();
+      return parseInt(cleaned) || 0;
+    }
+
+    function timeToSeconds(timeStr) {
+      if (!timeStr) return 0;
+      const parts = timeStr.toString().split(':').map(Number);
+      if (parts.length === 3) {
+        return parts[0] * 3600 + parts[1] * 60 + parts[2];
+      } else if (parts.length === 2) {
+        return parts[0] * 60 + parts[1];
+      }
+      return 0;
+    }
+
+    function extractPosition(placementStr) {
+      if (!placementStr) return 999;
+      
+      const lowerPlacement = placementStr.toString().toLowerCase();
+      
+      // Verificar se é pódio de categoria
+      if (lowerPlacement.includes('categoria') || lowerPlacement.includes('cat')) {
+        const catMatch = lowerPlacement.match(/(\d+)(?:ª|º)?\s*(?:categoria|cat)/i);
+        if (catMatch) return parseInt(catMatch[1]);
+        
+        if (lowerPlacement.includes('primeira') || lowerPlacement.includes('primeiro')) return 1;
+        if (lowerPlacement.includes('segunda') || lowerPlacement.includes('segundo')) return 2;
+        if (lowerPlacement.includes('terceira') || lowerPlacement.includes('terceiro')) return 3;
+        if (lowerPlacement.includes('quarta') || lowerPlacement.includes('quarto')) return 4;
+        if (lowerPlacement.includes('quinta') || lowerPlacement.includes('quinto')) return 5;
+      }
+      
+      // Extrair número diretamente
+      const match = placementStr.toString().match(/\d+/);
+      return match ? parseInt(match[0]) : 999;
+    }
+
+    function isOverallPodium(placementStr) {
+      if (!placementStr) return false;
+      
+      const lowerPlacement = placementStr.toString().toLowerCase();
+      const position = extractPosition(placementStr);
+      
+      // Verificar se é pódio geral (1-5) e não é de categoria
+      const isPodium = position >= 1 && position <= 5;
+      const isCategory = lowerPlacement.includes('categoria') || lowerPlacement.includes('cat');
+      const isOverall = lowerPlacement.includes('geral') || 
+                       (!isCategory && !lowerPlacement.includes('lugar'));
+      
+      return isPodium && isOverall;
+    }
+
+    function isCategoryPodium(placementStr) {
+      if (!placementStr) return false;
+      
+      const lowerPlacement = placementStr.toString().toLowerCase();
+      const position = extractPosition(placementStr);
+      
+      return (position >= 1 && position <= 5) && 
+             (lowerPlacement.includes('categoria') || lowerPlacement.includes('cat'));
+    }
+
+function isFirstPlace(placementStr) {
+  if (!placementStr) return false;
+  
+  const lowerPlacement = placementStr.toString().toLowerCase().trim();
+  
+  // Remover espaços extras e normalizar
+  const normalized = lowerPlacement
+    .replace(/\s+/g, ' ')
+    .replace(/[ªº]/g, '');
+  
+  // Expressões regulares que indicam 1ª Geral
+  const firstPlacePatterns = [
+    /^1\s*geral$/,           // "1 geral"
+    /^1$/,                   // "1" (apenas)
+    /^primeira\s+geral$/,    // "primeira geral"
+    /^primeiro\s+geral$/,    // "primeiro geral"
+    /^1\s*geral\s*/,         // "1 geral " (com espaços)
+    /^\s*1\s*geral\s*$/,     // " 1 geral " (com espaços)
+  ];
+  
+  // Verificar se corresponde a algum padrão
+  for (const pattern of firstPlacePatterns) {
+    if (pattern.test(normalized)) {
+      return true;
+    }
+  }
+  
+  // Verificar se contém "1" e "geral" mas NÃO contém "categoria"
+  if (normalized.includes('1') && 
+      normalized.includes('geral') && 
+      !normalized.includes('categoria') && 
+      !normalized.includes('cat')) {
+    
+    // Extrair a posição antes de "geral"
+    const match = normalized.match(/(\d+)\s*geral/);
+    if (match && parseInt(match[1]) === 1) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+    // Função para calcular estatísticas de forma otimizada
+    function calculateStats(races) {
+      let totalRaces = races.length;
+      let totalKm = 0;
+      let totalElevation = 0;
+      let totalTime = 0;
+      let overallPodiums = 0;
+      let categoryPodiums = 0;
+      let firstPlaceWins = 0;
+      
+      // Usar for loop para melhor performance
+      for (let i = 0; i < races.length; i++) {
+        const race = races[i];
+        
+        totalKm += parseDistance(race.distancia);
+        totalElevation += parseElevation(race.altimetria);
+        totalTime += timeToSeconds(race.tempo);
+        
+        if (isOverallPodium(race.colocacao)) {
+          overallPodiums++;
+          if (extractPosition(race.colocacao) === 1) {
+            firstPlaceWins++;
+          }
+        } else if (isCategoryPodium(race.colocacao)) {
+          categoryPodiums++;
+        }
+      }
+      
+      return {
+        totalRaces,
+        totalKm: roundNumber(totalKm).toLocaleString('pt-BR'),
+        totalElevation: totalElevation.toLocaleString('pt-BR'),
+        totalTime: formatTime(totalTime),
+        overallPodiums,
+        categoryPodiums,
+        totalPodiums: overallPodiums + categoryPodiums,
+        firstPlaceWins
+      };
+    }
+
+    // Função para atualizar o texto "Sobre Mim" com idade e estatísticas
+    function updateAboutText(stats) {
+      const idade = calcularIdade(DATA_NASCIMENTO);
+      
+      ageTextEl.innerHTML = `
+        Tenho <strong>${idade} anos</strong>, sou natural de São Paulo e resido em Ubatuba (SP) desde os 7 anos. 
+        Iniciei minha trajetória no atletismo aos 11 anos, interrompendo aos 15 e retomando em 2016, 
+        quando passei a me dedicar de forma consistente ao trail running e às provas de rua.
+      `;
+      
+      statsTextEl.innerHTML = `
+        Ao longo da minha carreira, já participei de <strong>${stats.totalRaces} provas</strong>, 
+        conquistando <strong>${stats.totalPodiums} pódios</strong>, sendo <strong>${stats.firstPlaceWins} vitórias</strong>.
+      `;
+    }
+
+    // Função para renderizar cards de resumo
+    function renderSummaryCards(stats) {
+      summaryCardsEl.innerHTML = `
+        <div class="summary-card">
+          <div class="card-icon"><i class="fas fa-flag-checkered"></i></div>
+          <h4>Provas Disputadas</h4>
+          <div class="value">${stats.totalRaces}</div>
+          <div class="unit">corridas</div>
+        </div>
+        <div class="summary-card">
+          <div class="card-icon"><i class="fas fa-road"></i></div>
+          <h4>Distância Total</h4>
+          <div class="value">${stats.totalKm}</div>
+          <div class="unit">quilômetros</div>
+        </div>
+        <div class="summary-card">
+          <div class="card-icon"><i class="fas fa-mountain"></i></div>
+          <h4>Altimetria Acumulada</h4>
+          <div class="value">${stats.totalElevation}</div>
+          <div class="unit">metros</div>
+        </div>
+        <div class="summary-card">
+          <div class="card-icon"><i class="fas fa-trophy"></i></div>
+          <h4>Pódios Conquistados</h4>
+          <div class="value">${stats.totalPodiums}</div>
+          <div class="unit">(${stats.overallPodiums} geral + ${stats.categoryPodiums} categoria)</div>
+        </div>
+      `;
+    }
+
+    // Função para renderizar estatísticas do herói (APENAS pódios gerais)
+    function renderHighlightStats(stats) {
+      const statCircles = highlightStatsEl.querySelectorAll('.stat-circle');
+      if (statCircles.length >= 4) {
+        statCircles[0].querySelector('.number').textContent = stats.totalRaces;
+        statCircles[1].querySelector('.number').textContent = stats.totalKm;
+        statCircles[2].querySelector('.number').textContent = stats.overallPodiums; // Apenas pódios gerais
+        statCircles[3].querySelector('.number').textContent = stats.totalTime.split(' ')[0];
       }
     }
 
-    carregarDados();
+    // Função para renderizar provas de forma otimizada
+    function renderRaces(races) {
+      if (races.length === 0) {
+        racesGridEl.innerHTML = '<div class="error-message"><p>Nenhuma prova encontrada com os filtros aplicados.</p></div>';
+        return;
+      }
+      
+      // Ordenar corridas por data (mais recente primeiro) - otimizado
+      const sortedRaces = [...races].sort((a, b) => {
+        const yearA = parseInt(extractYear(a.data)) || 0;
+        const yearB = parseInt(extractYear(b.data)) || 0;
+        return yearB - yearA;
+      });
+      
+      let racesHTML = '';
+      
+      // Usar for loop para melhor performance
+      for (let i = 0; i < Math.min(sortedRaces.length, 50); i++) { // Limitar a 50 provas para performance
+        const race = sortedRaces[i];
+        
+        // Determinar tipo de prova
+        const raceType = race.tipo || 'trail';
+        
+        // Determinar cor do pódio
+        const position = extractPosition(race.colocacao);
+        let podiumClass = '';
+        if (position === 1) podiumClass = 'gold';
+        else if (position === 2) podiumClass = 'silver';
+        else if (position === 3) podiumClass = 'bronze';
+        else if (position === 4) podiumClass = 'podium4';
+        else if (position === 5) podiumClass = 'podium5';
+        
+        // Usar imagem padrão se não houver
+        const imageUrl = race.imagemUrl || 
+                        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80';
+        
+        // Determinar ícone
+        const raceIcon = raceType === 'rua' ? 'fa-road' : 'fa-mountain';
+        const raceTypeText = raceType === 'rua' ? 'Corrida de Rua' : 'Trail Run';
+        
+        racesHTML += `
+          <div class="race-card" data-type="${raceType}" data-year="${extractYear(race.data)}">
+            <img src="${imageUrl}" alt="${race.evento}" class="race-image" loading="lazy">
+            <div class="race-content">
+              <h3 class="race-title">${race.evento || 'Corrida'}</h3>
+              <div class="race-meta">
+                <div class="meta-item">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>${race.data || 'Data não informada'}</span>
+                </div>
+                <div class="meta-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>${race.cidade || 'Local não informado'}</span>
+                </div>
+                <div class="meta-item">
+                  <i class="fas ${raceIcon}"></i>
+                  <span>${raceTypeText}</span>
+                </div>
+              </div>
+              <div class="race-stats">
+                <div class="stat-item">
+                  <div class="stat-value ${podiumClass}">${race.colocacao || 'N/A'}</div>
+                  <div class="stat-label">Colocação</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">${race.distancia || '0K'}</div>
+                  <div class="stat-label">Distância</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">${race.tempo || '00:00:00'}</div>
+                  <div class="stat-label">Tempo</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">${race.altimetria || '0m'}</div>
+                  <div class="stat-label">Altimetria</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      
+      racesGridEl.innerHTML = racesHTML;
+    }
+
+    // Função para renderizar seção Sobre Mim
+    function renderAboutSections(races) {
+      // 1. Principais conquistas (notórias)
+      const notableRaces = races.filter(race => race.notorio === 'sim').slice(0, 10);
+      let notableHTML = '';
+      
+      if (notableRaces.length > 0) {
+        notableRaces.forEach(race => {
+          notableHTML += `
+            <div class="achievement-item">
+              <div class="achievement-info">
+                <h4>${race.evento || 'Corrida'}</h4>
+                <div class="achievement-meta">
+                  <span>${race.distancia || '0K'}</span>
+                  <span>${race.data || 'Data não informada'}</span>
+                </div>
+              </div>
+              <div class="achievement-position">${race.colocacao || 'N/A'}</div>
+            </div>
+          `;
+        });
+      } else {
+        notableHTML = '<p style="text-align: center; color: var(--gray);">Nenhuma prova notória encontrada.</p>';
+      }
+      notableRacesEl.innerHTML = notableHTML;
+      
+      // 2. Provas internacionais
+      const internationalRaces = races.filter(race => race.internacional === 'sim');
+      let internationalHTML = '';
+      
+      if (internationalRaces.length > 0) {
+        internationalRaces.forEach(race => {
+          internationalHTML += `
+            <div class="achievement-item">
+              <div class="achievement-info">
+                <h4>${race.evento || 'Corrida Internacional'}</h4>
+                <div class="achievement-meta">
+                  <span>${race.distancia || '0K'}</span>
+                  <span>${race.data || 'Data não informada'}</span>
+                </div>
+              </div>
+              <div class="achievement-position">${race.colocacao || 'N/A'}</div>
+            </div>
+          `;
+        });
+      } else {
+        internationalHTML = '<p style="text-align: center; color: var(--gray);">Nenhuma prova internacional encontrada.</p>';
+      }
+      internationalRacesEl.innerHTML = internationalHTML;
+      
+      // 3. Provas em 1º lugar geral
+      const firstPlaceRaces = races.filter(race => isFirstPlace(race.colocacao));
+      let firstPlaceHTML = '';
+      
+      if (firstPlaceRaces.length > 0) {
+        firstPlaceRaces.forEach(race => {
+          firstPlaceHTML += `
+            <div class="achievement-item">
+              <div class="achievement-info">
+                <h4>${race.evento || 'Corrida'}</h4>
+                <div class="achievement-meta">
+                  <span>${race.distancia || '0K'}</span>
+                  <span>${race.data || 'Data não informada'}</span>
+                </div>
+              </div>
+              <div class="achievement-position">${race.colocacao || 'N/A'}</div>
+            </div>
+          `;
+        });
+      } else {
+        firstPlaceHTML = '<p style="text-align: center; color: var(--gray);">Nenhuma vitória geral encontrada.</p>';
+      }
+      firstPlaceRacesEl.innerHTML = firstPlaceHTML;
+    }
+
+    // Função para renderizar apoiadores
+    function renderSupporters() {
+      // Logos dos apoiadores
+      const supporterLogos = [
+        'https://lh3.googleusercontent.com/d/1537cKdNBVnXvorCo1HZBbcIv2ig8aCpp',
+        'https://lh3.googleusercontent.com/d/1ALEsmVEMfTKETgA7O3SXriqaR4oUmLsW',
+        'https://lh3.googleusercontent.com/d/1uamYqZH3_ZLRtTmMoP_DQQoNSq8gm4QY',
+        'https://lh3.googleusercontent.com/d/12Knrj3nTEp68fUD4kE5DENRv_H0La97f',
+        'https://lh3.googleusercontent.com/d/1z036GeEL7--3z-iJXnVccpKyKAnSOmAo',
+        'https://lh3.googleusercontent.com/d/1eledjbNtXN7fMXr5GoUW8lyTZeYl2S8Q',
+        'https://lh3.googleusercontent.com/d/1LbeyEZQbpMTGfLd2FuNY0tjiLPDH0Yya'
+      ];
+      
+      let supportersHTML = '';
+      
+      supporterLogos.forEach(logoUrl => {
+        supportersHTML += `
+          <div class="supporter-logo">
+            <img src="${logoUrl}" alt="Logo Apoiador" loading="lazy" onerror="this.src='https://via.placeholder.com/200x120?text=Logo+Apoiador'">
+          </div>
+        `;
+      });
+      
+      supportersCarouselEl.innerHTML = supportersHTML;
+      
+      // Configurar carrossel após carregar as imagens
+      setTimeout(setupCarousel, 100);
+    }
+
+    // Configurar carrossel
+    function setupCarousel() {
+      const items = supportersCarouselEl.children;
+      if (items.length === 0) return;
+      
+      // Calcular número de páginas
+      const itemWidth = items[0].offsetWidth + 20; // width + gap
+      const containerWidth = supportersCarouselEl.clientWidth;
+      const visibleItems = Math.floor(containerWidth / itemWidth);
+      const totalPages = Math.ceil(items.length / Math.max(1, visibleItems));
+      
+      // Criar dots
+      carouselDotsEl.innerHTML = '';
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+        dot.setAttribute('data-page', i);
+        dot.addEventListener('click', () => goToCarouselPage(i));
+        carouselDotsEl.appendChild(dot);
+      }
+      
+      updateCarouselButtons();
+    }
+
+    function goToCarouselPage(page) {
+      const items = supportersCarouselEl.children;
+      if (items.length === 0) return;
+      
+      const itemWidth = items[0].offsetWidth + 20;
+      const containerWidth = supportersCarouselEl.clientWidth;
+      const visibleItems = Math.floor(containerWidth / itemWidth);
+      const scrollPosition = page * visibleItems * itemWidth;
+      
+      supportersCarouselEl.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+      
+      currentCarouselPage = page;
+      updateCarouselDots();
+      updateCarouselButtons();
+    }
+
+    function updateCarouselDots() {
+      const dots = carouselDotsEl.querySelectorAll('.carousel-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentCarouselPage);
+      });
+    }
+
+    function updateCarouselButtons() {
+      const items = supportersCarouselEl.children;
+      if (items.length === 0) return;
+      
+      const itemWidth = items[0].offsetWidth + 20;
+      const containerWidth = supportersCarouselEl.clientWidth;
+      const visibleItems = Math.floor(containerWidth / itemWidth);
+      const totalPages = Math.ceil(items.length / Math.max(1, visibleItems));
+      
+      carouselPrevBtn.style.display = currentCarouselPage === 0 ? 'none' : 'flex';
+      carouselNextBtn.style.display = currentCarouselPage >= totalPages - 1 ? 'none' : 'flex';
+    }
+
+    // Função para atualizar gráficos
+    function updateCharts(races) {
+      // Agrupar por ano
+      const racesByYear = {};
+      const podiumByType = {
+        'Geral': 0,
+        'Categoria': 0
+      };
+      
+      races.forEach(race => {
+        const year = extractYear(race.data);
+        
+        if (!racesByYear[year]) {
+          racesByYear[year] = {
+            count: 0,
+            km: 0,
+            podiums: 0
+          };
+        }
+        
+        racesByYear[year].count++;
+        racesByYear[year].km += parseDistance(race.distancia);
+        
+        if (isOverallPodium(race.colocacao)) {
+          racesByYear[year].podiums++;
+        }
+        
+        // Contar tipos de pódio
+        if (isOverallPodium(race.colocacao)) podiumByType['Geral']++;
+        else if (isCategoryPodium(race.colocacao)) podiumByType['Categoria']++;
+      });
+      
+      // Ordenar anos
+      const sortedYears = Object.keys(racesByYear).sort((a, b) => parseInt(a) - parseInt(b));
+      
+      // Dados para o gráfico de desempenho anual
+      const yearlyLabels = sortedYears;
+      const yearlyRaceCounts = sortedYears.map(year => racesByYear[year].count);
+      const yearlyKmTotals = sortedYears.map(year => roundNumber(racesByYear[year].km));
+      
+      // Atualizar ou criar gráfico de desempenho anual
+      const yearlyCtx = document.getElementById('yearlyChart').getContext('2d');
+      
+      if (yearlyChart) {
+        yearlyChart.destroy();
+      }
+      
+      yearlyChart = new Chart(yearlyCtx, {
+        type: 'bar',
+        data: {
+          labels: yearlyLabels,
+          datasets: [
+            {
+              label: 'Número de Provas',
+              data: yearlyRaceCounts,
+              backgroundColor: 'rgba(255, 90, 95, 0.7)',
+              borderColor: 'rgba(255, 90, 95, 1)',
+              borderWidth: 1,
+              yAxisID: 'y'
+            },
+            {
+              label: 'Quilômetros Percorridos',
+              data: yearlyKmTotals,
+              backgroundColor: 'rgba(0, 166, 153, 0.7)',
+              borderColor: 'rgba(0, 166, 153, 1)',
+              borderWidth: 1,
+              yAxisID: 'y1',
+              type: 'line'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Número de Provas'
+              }
+            },
+            y1: {
+              beginAtZero: true,
+              position: 'right',
+              title: {
+                display: true,
+                text: 'Quilômetros'
+              },
+              grid: {
+                drawOnChartArea: false
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'top'
+            }
+          }
+        }
+      });
+      
+      // Atualizar ou criar gráfico de distribuição de pódios
+      const podiumCtx = document.getElementById('podiumChart').getContext('2d');
+      const podiumLabels = Object.keys(podiumByType);
+      const podiumData = Object.values(podiumByType);
+      
+      if (podiumChart) {
+        podiumChart.destroy();
+      }
+      
+      podiumChart = new Chart(podiumCtx, {
+        type: 'doughnut',
+        data: {
+          labels: podiumLabels,
+          datasets: [{
+            data: podiumData,
+            backgroundColor: [
+              'rgba(255, 180, 0, 0.8)',  // Geral
+              'rgba(0, 166, 153, 0.8)'   // Categoria
+            ],
+            borderColor: [
+              'rgba(255, 180, 0, 1)',
+              'rgba(0, 166, 153, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top'
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const label = context.label || '';
+                  const value = context.raw || 0;
+                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                  const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                  return `${label}: ${value} (${percentage}%)`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Função para filtrar corridas
+    function filterRaces() {
+      const selectedYear = yearFilter.value;
+      const selectedType = typeFilter.value;
+      const selectedPodium = podiumFilter.value;
+      
+      filteredRaces = allRaces.filter(race => {
+        // Filtro por ano
+        if (selectedYear !== 'all' && extractYear(race.data) !== selectedYear) {
+          return false;
+        }
+        
+        // Filtro por tipo
+        if (selectedType !== 'all') {
+          const raceType = race.tipo || 'trail';
+          if (selectedType !== raceType) {
+            return false;
+          }
+        }
+        
+        // Filtro por pódio
+        if (selectedPodium !== 'all') {
+          const position = extractPosition(race.colocacao);
+          
+          if (selectedPodium === 'podium' && position > 5) {
+            return false;
+          } else if (selectedPodium === 'top10' && position > 10) {
+            return false;
+          }
+        }
+        
+        return true;
+      });
+      
+      // Atualizar a interface com as corridas filtradas
+      const stats = calculateStats(filteredRaces);
+      renderSummaryCards(stats);
+      renderHighlightStats(stats);
+      renderRaces(filteredRaces);
+      updateCharts(filteredRaces);
+      updateAboutText(stats);
+    }
+
+    // Função para carregar dados do Firebase
+    function loadData() {
+      console.log("Iniciando carregamento de dados...");
+      
+      // Mostrar loading
+      summaryCardsEl.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando dados...</div>';
+      racesGridEl.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando corridas...</div>';
+      ageTextEl.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando informações...</div>';
+      statsTextEl.innerHTML = '';
+      
+      // Referência para os dados no Firebase
+      const racesRef = database.ref('races');
+      
+      // Carregar corridas com timeout para evitar travamento
+      const loadTimeout = setTimeout(() => {
+        showErrorMessage("Tempo limite excedido ao carregar dados. Verifique sua conexão com a internet.");
+      }, 10000);
+      
+      racesRef.once('value')
+        .then(snapshot => {
+          clearTimeout(loadTimeout);
+          console.log("Dados recebidos do Firebase");
+          
+          const data = snapshot.val();
+          
+          if (data) {
+            // Converter objeto de objetos em array
+            allRaces = Object.values(data);
+            console.log(`Total de corridas carregadas: ${allRaces.length}`);
+            
+            // Extrair anos disponíveis
+            const yearsSet = new Set();
+            allRaces.forEach(race => {
+              const year = extractYear(race.data);
+              if (year) yearsSet.add(year);
+            });
+            
+            availableYears = Array.from(yearsSet).sort((a, b) => parseInt(b) - parseInt(a));
+            console.log(`Anos disponíveis: ${availableYears.join(', ')}`);
+            
+            // Preencher filtro de anos
+            yearFilter.innerHTML = '<option value="all">Todos os Anos</option>';
+            availableYears.forEach(year => {
+              yearFilter.innerHTML += `<option value="${year}">${year}</option>`;
+            });
+            
+            // Inicializar com todas as corridas
+            filteredRaces = [...allRaces];
+            
+            // Calcular e exibir estatísticas
+            const stats = calculateStats(allRaces);
+            console.log("Estatísticas calculadas:", stats);
+            
+            renderSummaryCards(stats);
+            renderHighlightStats(stats);
+            renderRaces(allRaces);
+            updateCharts(allRaces);
+            renderAboutSections(allRaces);
+            updateAboutText(stats);
+            
+            // Carregar apoiadores
+            renderSupporters();
+            
+            console.log("Interface carregada com sucesso!");
+          } else {
+            showErrorMessage("Nenhum dado encontrado no banco de dados. Verifique se existem dados no nó 'races'.");
+          }
+        })
+        .catch(error => {
+          clearTimeout(loadTimeout);
+          console.error("Erro ao carregar dados do Firebase:", error);
+          showErrorMessage(`Erro ao carregar dados: ${error.message}`);
+          
+          // Carregar apoiadores mesmo com erro
+          renderSupporters();
+        });
+    }
+
+    // Função para exibir mensagem de erro
+    function showErrorMessage(message) {
+      const errorHTML = `
+        <div class="error-message">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h3>Erro ao carregar dados</h3>
+          <p>${message}</p>
+          <p>Tente recarregar a página ou verifique sua conexão com a internet.</p>
+        </div>
+      `;
+      
+      summaryCardsEl.innerHTML = errorHTML;
+      racesGridEl.innerHTML = '';
+      ageTextEl.innerHTML = '<p style="color: var(--gray); text-align: center;">Não foi possível carregar as informações.</p>';
+    }
+
+    // Funções para controlar a exibição das seções
+    function showSection(section) {
+      document.querySelectorAll('.expanded-section').forEach(el => {
+        el.classList.add('hidden');
+      });
+      
+      section.classList.remove('hidden');
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      
+      // Se for a seção de apoiadores, recalcular o carrossel
+      if (section === supportersSectionEl) {
+        setTimeout(() => {
+          setupCarousel();
+        }, 100);
+      }
+    }
+
+    function hideSection(section) {
+      section.classList.add('hidden');
+    }
+
+    // Event Listeners
+    yearFilter.addEventListener('change', filterRaces);
+    typeFilter.addEventListener('change', filterRaces);
+    podiumFilter.addEventListener('change', filterRaces);
+    
+    resetFiltersBtn.addEventListener('click', () => {
+      yearFilter.value = 'all';
+      typeFilter.value = 'all';
+      podiumFilter.value = 'all';
+      filterRaces();
+    });
+    
+    // Eventos para navegação no carrossel
+    carouselPrevBtn.addEventListener('click', () => {
+      if (currentCarouselPage > 0) {
+        goToCarouselPage(currentCarouselPage - 1);
+      }
+    });
+    
+    carouselNextBtn.addEventListener('click', () => {
+      goToCarouselPage(currentCarouselPage + 1);
+    });
+    
+    // Detectar rolagem do carrossel
+    supportersCarouselEl.addEventListener('scroll', () => {
+      const items = supportersCarouselEl.children;
+      if (items.length === 0) return;
+      
+      const itemWidth = items[0].offsetWidth + 20;
+      const scrollPosition = supportersCarouselEl.scrollLeft;
+      const containerWidth = supportersCarouselEl.clientWidth;
+      const visibleItems = Math.floor(containerWidth / itemWidth);
+      
+      const newPage = Math.round(scrollPosition / (itemWidth * visibleItems));
+      if (newPage !== currentCarouselPage) {
+        currentCarouselPage = newPage;
+        updateCarouselDots();
+        updateCarouselButtons();
+      }
+    });
+    
+    // Redimensionar janela
+    window.addEventListener('resize', () => {
+      if (!supportersSectionEl.classList.contains('hidden')) {
+        setupCarousel();
+      }
+    });
+    
+    // Eventos para mostrar seções
+    statisticsBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection(expandedStatsEl);
+    });
+    
+    supportersBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection(supportersSectionEl);
+    });
+
+     aboutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection(aboutSectionEl);
+    });
+    
+    footerStatisticsBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection(expandedStatsEl);
+    });
+    
+    footerSupportersBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection(supportersSectionEl);
+    });
+    
+    footerAboutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection(aboutSectionEl);
+    });
+    
+    // Eventos para fechar seções
+    closeStatsBtn.addEventListener('click', () => hideSection(expandedStatsEl));
+    closeSupportersBtn.addEventListener('click', () => hideSection(supportersSectionEl));
+    closeAboutBtn.addEventListener('click', () => hideSection(aboutSectionEl));
+
+    // Fechar seções ao clicar fora
+    expandedStatsEl.addEventListener('click', (e) => {
+      if (e.target === expandedStatsEl) hideSection(expandedStatsEl);
+    });
+    
+    supportersSectionEl.addEventListener('click', (e) => {
+      if (e.target === supportersSectionEl) hideSection(supportersSectionEl);
+    });
+    
+    aboutSectionEl.addEventListener('click', (e) => {
+      if (e.target === aboutSectionEl) hideSection(aboutSectionEl);
+    });
+
+    // Inicializar quando o DOM estiver carregado
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log("DOM carregado, iniciando carregamento de dados...");
+      try {
+        loadData();
+      } catch (error) {
+        console.error("Erro crítico ao carregar dados:", error);
+        showErrorMessage("Erro crítico ao carregar a aplicação: " + error.message);
+      }
+    });
   </script>
 </body>
 </html>
