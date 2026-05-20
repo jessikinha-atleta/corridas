@@ -96,6 +96,7 @@
     .social-links {
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .social-btn {
@@ -408,6 +409,37 @@
     .chart-wrapper {
       height: 300px;
       position: relative;
+    }
+
+    /* Botão Carregar Mais */
+    .load-more-container {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    .load-more-btn {
+      background: linear-gradient(45deg, var(--primary), #FF8A80);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 15px rgba(255, 90, 95, 0.3);
+    }
+
+    .load-more-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 90, 95, 0.4);
+    }
+
+    .load-more-btn i {
+      font-size: 1.2rem;
     }
 
     /* Seção de Apoiadores - Atualizada com Carrossel */
@@ -1027,10 +1059,10 @@
           <i class="fas fa-handshake"></i>
           <span>Apoiadores</span>
         </a>
-	<a href="#" id="about-btn" class="social-btn about">
-	  <i class="fas fa-user"></i>
-	  <span>Sobre Mim</span>
-	</a>
+        <a href="#" id="about-btn" class="social-btn about">
+          <i class="fas fa-user"></i>
+          <span>Sobre Mim</span>
+        </a>
         <a href="https://instagram.com/jessikinha.atleta" target="_blank" class="social-btn instagram">
           <i class="fab fa-instagram"></i>
           <span>Instagram</span>
@@ -1053,7 +1085,6 @@
       <h2>Minha Jornada nas Trilhas</h2>
       <p>Acompanhe minha trajetória nas corridas. Cada passo conta uma história de superação!</p>
       <div class="highlight-stats" id="highlight-stats">
-        <!-- Os dados serão preenchidos pelo JavaScript -->
         <div class="stat-circle">
           <div class="number">0</div>
           <div class="label">Provas</div>
@@ -1092,7 +1123,6 @@
             <label for="year-filter">Filtrar por Ano:</label>
             <select id="year-filter">
               <option value="all">Todos os Anos</option>
-              <!-- Os anos serão preenchidos dinamicamente -->
             </select>
           </div>
           <div class="filter-group">
@@ -1119,7 +1149,6 @@
 
       <!-- Cards de Resumo -->
       <section class="summary-cards" id="summary-cards">
-        <!-- Os cards serão preenchidos pelo JavaScript -->
         <div class="loading">
           <i class="fas fa-spinner fa-spin"></i> Carregando dados...
         </div>
@@ -1166,7 +1195,6 @@
             <i class="fas fa-chevron-left"></i>
           </button>
           <div class="supporters-carousel" id="supporters-carousel">
-            <!-- Logos serão adicionadas via JavaScript -->
             <div class="loading">
               <i class="fas fa-spinner fa-spin"></i> Carregando apoiadores...
             </div>
@@ -1174,9 +1202,7 @@
           <button class="carousel-btn next">
             <i class="fas fa-chevron-right"></i>
           </button>
-          <div class="carousel-dots" id="carousel-dots">
-            <!-- Pontos do carrossel serão adicionados via JavaScript -->
-          </div>
+          <div class="carousel-dots" id="carousel-dots"></div>
         </div>
         
         <div class="pix-section">
@@ -1186,7 +1212,7 @@
             para que eu possa continuar competindo e representando nosso país.
           </p>
           <div class="pix-key">
-            PIX: <strong> 8e5a217d-7164-4fe5-8745-8a05fad30966 <strong>
+            PIX: <strong>8e5a217d-7164-4fe5-8745-8a05fad30966</strong>
           </div>
           <p style="font-size: 0.9rem; opacity: 0.8;">
             (Jéssica dos Reis)
@@ -1210,7 +1236,6 @@
         <div class="about-content">
           <h3><i class="fas fa-running"></i> Jéssica dos Reis</h3>
           <p id="age-text">
-            <!-- A idade será calculada automaticamente -->
             Carregando informações...
           </p>
           <p id="career-text">
@@ -1218,9 +1243,7 @@
             nacional da categoria por idade e a 9ª colocação nos rankings da UTMB (Ultra-Trail du Mont-Blanc) 
             e da ITRA (International Trail Running Association) — referências mundiais no trail running.
           </p>
-          <p id="stats-text">
-            <!-- As estatísticas serão inseridas aqui automaticamente -->
-          </p>
+          <p id="stats-text"></p>
           <p>
             Com disciplina, determinação e foco em alta performance, busco constantemente superar meus limites, 
             enfrentar terrenos desafiadores e construir uma trajetória sólida e consistente nas corridas de montanha.
@@ -1230,7 +1253,6 @@
         <div class="about-content">
           <h3><i class="fas fa-trophy"></i> Principais Conquistas</h3>
           <div class="achievements-grid" id="notable-races">
-            <!-- Principais conquistas serão preenchidas via JavaScript -->
             <div class="loading">
               <i class="fas fa-spinner fa-spin"></i> Carregando conquistas...
             </div>
@@ -1240,7 +1262,6 @@
         <div class="about-content">
           <h3><i class="fas fa-globe-americas"></i> Provas Internacionais</h3>
           <div class="achievements-grid" id="international-races">
-            <!-- Provas internacionais serão preenchidas via JavaScript -->
             <div class="loading">
               <i class="fas fa-spinner fa-spin"></i> Carregando provas internacionais...
             </div>
@@ -1250,7 +1271,6 @@
         <div class="about-content">
           <h3><i class="fas fa-medal"></i> Pódio 1ª Geral</h3>
           <div class="achievements-grid" id="first-place-races">
-            <!-- Provas em 1º lugar serão preenchidas via JavaScript -->
             <div class="loading">
               <i class="fas fa-spinner fa-spin"></i> Carregando vitórias...
             </div>
@@ -1287,10 +1307,15 @@
     <section class="races-section">
       <h2 class="section-title"><i class="fas fa-flag-checkered"></i> Minhas Provas</h2>
       <div class="races-grid" id="races-grid">
-        <!-- As provas serão preenchidas pelo JavaScript -->
         <div class="loading">
           <i class="fas fa-spinner fa-spin"></i> Carregando corridas...
         </div>
+      </div>
+      <div class="load-more-container" id="load-more-container" style="display: none;">
+        <button class="load-more-btn" id="load-more-btn">
+          <i class="fas fa-arrow-down"></i>
+          Carregar Mais Provas
+        </button>
       </div>
     </section>
   </main>
@@ -1350,6 +1375,10 @@
     let filteredRaces = [];
     let availableYears = [];
     let currentCarouselPage = 0;
+    
+    // Variáveis para paginação das provas
+    let currentDisplayCount = 20; // Quantas provas exibir por vez
+    let sortedRaces = []; // Provas ordenadas (mais recentes primeiro)
 
     // Data de nascimento da atleta (20/01/1992)
     const DATA_NASCIMENTO = '1992-01-20';
@@ -1362,6 +1391,8 @@
     const summaryCardsEl = document.getElementById('summary-cards');
     const racesGridEl = document.getElementById('races-grid');
     const highlightStatsEl = document.getElementById('highlight-stats');
+    const loadMoreContainer = document.getElementById('load-more-container');
+    const loadMoreBtn = document.getElementById('load-more-btn');
     
     // Seções expandidas
     const expandedStatsEl = document.getElementById('expanded-stats');
@@ -1405,7 +1436,6 @@
       let idade = hoje.getFullYear() - nascimento.getFullYear();
       const mes = hoje.getMonth() - nascimento.getMonth();
       
-      // Ajustar se ainda não fez aniversário este ano
       if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
         idade--;
       }
@@ -1414,9 +1444,9 @@
     }
 
     // Funções utilitárias otimizadas
-function roundNumber(num) {
-  return Math.round(num);  // Arredonda para o inteiro mais próximo
-}
+    function roundNumber(num) {
+      return Math.round(num);
+    }
 
     function formatTime(seconds) {
       if (!seconds) return "0h 0m";
@@ -1428,11 +1458,9 @@ function roundNumber(num) {
     function extractYear(dateString) {
       if (!dateString) return new Date().getFullYear().toString();
       
-      // Tentar extrair o ano de diferentes formatos
       const yearMatch = dateString.match(/(\d{4})/);
       if (yearMatch) return yearMatch[1];
       
-      // Tentar formatos com barras
       if (dateString.includes('/')) {
         const parts = dateString.split('/');
         const lastPart = parts[parts.length - 1];
@@ -1440,6 +1468,28 @@ function roundNumber(num) {
       }
       
       return new Date().getFullYear().toString();
+    }
+
+    // Função para extrair data comparável (ordenação correta)
+    function getComparableDate(dateString) {
+      if (!dateString) return '0000-00-00';
+      
+      // Tentar formato DD/MM/AAAA
+      const slashMatch = dateString.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+      if (slashMatch) {
+        const day = slashMatch[1].padStart(2, '0');
+        const month = slashMatch[2].padStart(2, '0');
+        const year = slashMatch[3];
+        return `${year}-${month}-${day}`;
+      }
+      
+      // Tentar extrair apenas o ano
+      const yearMatch = dateString.match(/(\d{4})/);
+      if (yearMatch) {
+        return `${yearMatch[1]}-00-00`;
+      }
+      
+      return '0000-00-00';
     }
 
     function parseDistance(distanceStr) {
@@ -1470,7 +1520,6 @@ function roundNumber(num) {
       
       const lowerPlacement = placementStr.toString().toLowerCase();
       
-      // Verificar se é pódio de categoria
       if (lowerPlacement.includes('categoria') || lowerPlacement.includes('cat')) {
         const catMatch = lowerPlacement.match(/(\d+)(?:ª|º)?\s*(?:categoria|cat)/i);
         if (catMatch) return parseInt(catMatch[1]);
@@ -1482,7 +1531,6 @@ function roundNumber(num) {
         if (lowerPlacement.includes('quinta') || lowerPlacement.includes('quinto')) return 5;
       }
       
-      // Extrair número diretamente
       const match = placementStr.toString().match(/\d+/);
       return match ? parseInt(match[0]) : 999;
     }
@@ -1493,7 +1541,6 @@ function roundNumber(num) {
       const lowerPlacement = placementStr.toString().toLowerCase();
       const position = extractPosition(placementStr);
       
-      // Verificar se é pódio geral (1-5) e não é de categoria
       const isPodium = position >= 1 && position <= 5;
       const isCategory = lowerPlacement.includes('categoria') || lowerPlacement.includes('cat');
       const isOverall = lowerPlacement.includes('geral') || 
@@ -1512,50 +1559,43 @@ function roundNumber(num) {
              (lowerPlacement.includes('categoria') || lowerPlacement.includes('cat'));
     }
 
-function isFirstPlace(placementStr) {
-  if (!placementStr) return false;
-  
-  const lowerPlacement = placementStr.toString().toLowerCase().trim();
-  
-  // Remover espaços extras e normalizar
-  const normalized = lowerPlacement
-    .replace(/\s+/g, ' ')
-    .replace(/[ªº]/g, '');
-  
-  // Expressões regulares que indicam 1ª Geral
-  const firstPlacePatterns = [
-    /^1\s*geral$/,           // "1 geral"
-    /^1$/,                   // "1" (apenas)
-    /^primeira\s+geral$/,    // "primeira geral"
-    /^primeiro\s+geral$/,    // "primeiro geral"
-    /^1\s*geral\s*/,         // "1 geral " (com espaços)
-    /^\s*1\s*geral\s*$/,     // " 1 geral " (com espaços)
-  ];
-  
-  // Verificar se corresponde a algum padrão
-  for (const pattern of firstPlacePatterns) {
-    if (pattern.test(normalized)) {
-      return true;
+    function isFirstPlace(placementStr) {
+      if (!placementStr) return false;
+      
+      const lowerPlacement = placementStr.toString().toLowerCase().trim();
+      const normalized = lowerPlacement
+        .replace(/\s+/g, ' ')
+        .replace(/[ªº]/g, '');
+      
+      const firstPlacePatterns = [
+        /^1\s*geral$/,
+        /^1$/,
+        /^primeira\s+geral$/,
+        /^primeiro\s+geral$/,
+        /^1\s*geral\s*/,
+        /^\s*1\s*geral\s*$/,
+      ];
+      
+      for (const pattern of firstPlacePatterns) {
+        if (pattern.test(normalized)) {
+          return true;
+        }
+      }
+      
+      if (normalized.includes('1') && 
+          normalized.includes('geral') && 
+          !normalized.includes('categoria') && 
+          !normalized.includes('cat')) {
+        const match = normalized.match(/(\d+)\s*geral/);
+        if (match && parseInt(match[1]) === 1) {
+          return true;
+        }
+      }
+      
+      return false;
     }
-  }
-  
-  // Verificar se contém "1" e "geral" mas NÃO contém "categoria"
-  if (normalized.includes('1') && 
-      normalized.includes('geral') && 
-      !normalized.includes('categoria') && 
-      !normalized.includes('cat')) {
-    
-    // Extrair a posição antes de "geral"
-    const match = normalized.match(/(\d+)\s*geral/);
-    if (match && parseInt(match[1]) === 1) {
-      return true;
-    }
-  }
-  
-  return false;
-}
 
-    // Função para calcular estatísticas de forma otimizada
+    // Função para calcular estatísticas
     function calculateStats(races) {
       let totalRaces = races.length;
       let totalKm = 0;
@@ -1565,7 +1605,6 @@ function isFirstPlace(placementStr) {
       let categoryPodiums = 0;
       let firstPlaceWins = 0;
       
-      // Usar for loop para melhor performance
       for (let i = 0; i < races.length; i++) {
         const race = races[i];
         
@@ -1595,7 +1634,7 @@ function isFirstPlace(placementStr) {
       };
     }
 
-    // Função para atualizar o texto "Sobre Mim" com idade e estatísticas
+    // Função para atualizar o texto "Sobre Mim"
     function updateAboutText(stats) {
       const idade = calcularIdade(DATA_NASCIMENTO);
       
@@ -1641,41 +1680,48 @@ function isFirstPlace(placementStr) {
       `;
     }
 
-    // Função para renderizar estatísticas do herói (APENAS pódios gerais)
+    // Função para renderizar estatísticas do herói
     function renderHighlightStats(stats) {
       const statCircles = highlightStatsEl.querySelectorAll('.stat-circle');
       if (statCircles.length >= 4) {
         statCircles[0].querySelector('.number').textContent = stats.totalRaces;
         statCircles[1].querySelector('.number').textContent = stats.totalKm;
-        statCircles[2].querySelector('.number').textContent = stats.overallPodiums; // Apenas pódios gerais
+        statCircles[2].querySelector('.number').textContent = stats.overallPodiums;
         statCircles[3].querySelector('.number').textContent = stats.totalTime.split(' ')[0];
       }
     }
 
-    // Função para renderizar provas de forma otimizada
-    function renderRaces(races) {
-      if (races.length === 0) {
+// Função para ordenar provas (mais antigas primeiro, para depois inverter)
+function sortRacesByDate(races) {
+  // Primeiro ordena da mais antiga para a mais nova
+  const sorted = [...races].sort((a, b) => {
+    const dateA = getComparableDate(a.data);
+    const dateB = getComparableDate(b.data);
+    return dateA.localeCompare(dateB); // Mais antiga primeiro
+  });
+  
+  // Depois inverte para que a mais recente fique no início do array
+  // Quando o grid renderizar, a mais recente (índice 0) virá primeiro
+  return sorted.reverse();
+}
+
+    // Função para renderizar provas com paginação
+    function renderRaces() {
+      if (sortedRaces.length === 0) {
         racesGridEl.innerHTML = '<div class="error-message"><p>Nenhuma prova encontrada com os filtros aplicados.</p></div>';
+        loadMoreContainer.style.display = 'none';
         return;
       }
       
-      // Ordenar corridas por data (mais recente primeiro) - otimizado
-      const sortedRaces = [...races].sort((a, b) => {
-        const yearA = parseInt(extractYear(a.data)) || 0;
-        const yearB = parseInt(extractYear(b.data)) || 0;
-        return yearB - yearA;
-      });
+      let racesToShow = sortedRaces.slice(0, currentDisplayCount);
       
       let racesHTML = '';
       
-      // Usar for loop para melhor performance
-      for (let i = 0; i < Math.min(sortedRaces.length, 50); i++) { // Limitar a 50 provas para performance
-        const race = sortedRaces[i];
+      for (let i = 0; i < racesToShow.length; i++) {
+        const race = racesToShow[i];
         
-        // Determinar tipo de prova
         const raceType = race.tipo || 'trail';
         
-        // Determinar cor do pódio
         const position = extractPosition(race.colocacao);
         let podiumClass = '';
         if (position === 1) podiumClass = 'gold';
@@ -1684,11 +1730,9 @@ function isFirstPlace(placementStr) {
         else if (position === 4) podiumClass = 'podium4';
         else if (position === 5) podiumClass = 'podium5';
         
-        // Usar imagem padrão se não houver
         const imageUrl = race.imagemUrl || 
                         'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80';
         
-        // Determinar ícone
         const raceIcon = raceType === 'rua' ? 'fa-road' : 'fa-mountain';
         const raceTypeText = raceType === 'rua' ? 'Corrida de Rua' : 'Trail Run';
         
@@ -1735,11 +1779,28 @@ function isFirstPlace(placementStr) {
       }
       
       racesGridEl.innerHTML = racesHTML;
+      
+      // Mostrar/esconder botão "Carregar Mais"
+      if (currentDisplayCount < sortedRaces.length) {
+        loadMoreContainer.style.display = 'block';
+      } else {
+        loadMoreContainer.style.display = 'none';
+      }
+    }
+
+    // Função para carregar mais provas
+    function loadMoreRaces() {
+      currentDisplayCount += 20;
+      renderRaces();
+    }
+
+    // Função para resetar a paginação quando os filtros mudam
+    function resetPagination() {
+      currentDisplayCount = 20;
     }
 
     // Função para renderizar seção Sobre Mim
     function renderAboutSections(races) {
-      // 1. Principais conquistas (notórias)
       const notableRaces = races.filter(race => race.notorio === 'sim').slice(0, 10);
       let notableHTML = '';
       
@@ -1763,7 +1824,6 @@ function isFirstPlace(placementStr) {
       }
       notableRacesEl.innerHTML = notableHTML;
       
-      // 2. Provas internacionais
       const internationalRaces = races.filter(race => race.internacional === 'sim');
       let internationalHTML = '';
       
@@ -1787,7 +1847,6 @@ function isFirstPlace(placementStr) {
       }
       internationalRacesEl.innerHTML = internationalHTML;
       
-      // 3. Provas em 1º lugar geral
       const firstPlaceRaces = races.filter(race => isFirstPlace(race.colocacao));
       let firstPlaceHTML = '';
       
@@ -1814,7 +1873,6 @@ function isFirstPlace(placementStr) {
 
     // Função para renderizar apoiadores
     function renderSupporters() {
-      // Logos dos apoiadores
       const supporterLogos = [
         'https://lh3.googleusercontent.com/d/1537cKdNBVnXvorCo1HZBbcIv2ig8aCpp',
         'https://lh3.googleusercontent.com/d/1ALEsmVEMfTKETgA7O3SXriqaR4oUmLsW',
@@ -1837,7 +1895,6 @@ function isFirstPlace(placementStr) {
       
       supportersCarouselEl.innerHTML = supportersHTML;
       
-      // Configurar carrossel após carregar as imagens
       setTimeout(setupCarousel, 100);
     }
 
@@ -1846,13 +1903,11 @@ function isFirstPlace(placementStr) {
       const items = supportersCarouselEl.children;
       if (items.length === 0) return;
       
-      // Calcular número de páginas
-      const itemWidth = items[0].offsetWidth + 20; // width + gap
+      const itemWidth = items[0].offsetWidth + 20;
       const containerWidth = supportersCarouselEl.clientWidth;
       const visibleItems = Math.floor(containerWidth / itemWidth);
       const totalPages = Math.ceil(items.length / Math.max(1, visibleItems));
       
-      // Criar dots
       carouselDotsEl.innerHTML = '';
       for (let i = 0; i < totalPages; i++) {
         const dot = document.createElement('button');
@@ -1906,7 +1961,6 @@ function isFirstPlace(placementStr) {
 
     // Função para atualizar gráficos
     function updateCharts(races) {
-      // Agrupar por ano
       const racesByYear = {};
       const podiumByType = {
         'Geral': 0,
@@ -1931,20 +1985,16 @@ function isFirstPlace(placementStr) {
           racesByYear[year].podiums++;
         }
         
-        // Contar tipos de pódio
         if (isOverallPodium(race.colocacao)) podiumByType['Geral']++;
         else if (isCategoryPodium(race.colocacao)) podiumByType['Categoria']++;
       });
       
-      // Ordenar anos
       const sortedYears = Object.keys(racesByYear).sort((a, b) => parseInt(a) - parseInt(b));
       
-      // Dados para o gráfico de desempenho anual
       const yearlyLabels = sortedYears;
       const yearlyRaceCounts = sortedYears.map(year => racesByYear[year].count);
       const yearlyKmTotals = sortedYears.map(year => roundNumber(racesByYear[year].km));
       
-      // Atualizar ou criar gráfico de desempenho anual
       const yearlyCtx = document.getElementById('yearlyChart').getContext('2d');
       
       if (yearlyChart) {
@@ -2006,7 +2056,6 @@ function isFirstPlace(placementStr) {
         }
       });
       
-      // Atualizar ou criar gráfico de distribuição de pódios
       const podiumCtx = document.getElementById('podiumChart').getContext('2d');
       const podiumLabels = Object.keys(podiumByType);
       const podiumData = Object.values(podiumByType);
@@ -2022,8 +2071,8 @@ function isFirstPlace(placementStr) {
           datasets: [{
             data: podiumData,
             backgroundColor: [
-              'rgba(255, 180, 0, 0.8)',  // Geral
-              'rgba(0, 166, 153, 0.8)'   // Categoria
+              'rgba(255, 180, 0, 0.8)',
+              'rgba(0, 166, 153, 0.8)'
             ],
             borderColor: [
               'rgba(255, 180, 0, 1)',
@@ -2061,13 +2110,11 @@ function isFirstPlace(placementStr) {
       const selectedType = typeFilter.value;
       const selectedPodium = podiumFilter.value;
       
-      filteredRaces = allRaces.filter(race => {
-        // Filtro por ano
+      let filtered = allRaces.filter(race => {
         if (selectedYear !== 'all' && extractYear(race.data) !== selectedYear) {
           return false;
         }
         
-        // Filtro por tipo
         if (selectedType !== 'all') {
           const raceType = race.tipo || 'trail';
           if (selectedType !== raceType) {
@@ -2075,7 +2122,6 @@ function isFirstPlace(placementStr) {
           }
         }
         
-        // Filtro por pódio
         if (selectedPodium !== 'all') {
           const position = extractPosition(race.colocacao);
           
@@ -2089,12 +2135,20 @@ function isFirstPlace(placementStr) {
         return true;
       });
       
-      // Atualizar a interface com as corridas filtradas
-      const stats = calculateStats(filteredRaces);
+      // Ordenar as provas filtradas (mais recentes primeiro)
+      sortedRaces = sortRacesByDate(filtered);
+      
+      // Resetar paginação
+      resetPagination();
+      
+      // Renderizar
+      renderRaces();
+      
+      // Atualizar estatísticas
+      const stats = calculateStats(filtered);
       renderSummaryCards(stats);
       renderHighlightStats(stats);
-      renderRaces(filteredRaces);
-      updateCharts(filteredRaces);
+      updateCharts(filtered);
       updateAboutText(stats);
     }
 
@@ -2102,16 +2156,13 @@ function isFirstPlace(placementStr) {
     function loadData() {
       console.log("Iniciando carregamento de dados...");
       
-      // Mostrar loading
       summaryCardsEl.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando dados...</div>';
       racesGridEl.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando corridas...</div>';
       ageTextEl.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando informações...</div>';
       statsTextEl.innerHTML = '';
       
-      // Referência para os dados no Firebase
       const racesRef = database.ref('races');
       
-      // Carregar corridas com timeout para evitar travamento
       const loadTimeout = setTimeout(() => {
         showErrorMessage("Tempo limite excedido ao carregar dados. Verifique sua conexão com a internet.");
       }, 10000);
@@ -2124,11 +2175,9 @@ function isFirstPlace(placementStr) {
           const data = snapshot.val();
           
           if (data) {
-            // Converter objeto de objetos em array
             allRaces = Object.values(data);
             console.log(`Total de corridas carregadas: ${allRaces.length}`);
             
-            // Extrair anos disponíveis
             const yearsSet = new Set();
             allRaces.forEach(race => {
               const year = extractYear(race.data);
@@ -2138,27 +2187,24 @@ function isFirstPlace(placementStr) {
             availableYears = Array.from(yearsSet).sort((a, b) => parseInt(b) - parseInt(a));
             console.log(`Anos disponíveis: ${availableYears.join(', ')}`);
             
-            // Preencher filtro de anos
             yearFilter.innerHTML = '<option value="all">Todos os Anos</option>';
             availableYears.forEach(year => {
               yearFilter.innerHTML += `<option value="${year}">${year}</option>`;
             });
             
-            // Inicializar com todas as corridas
-            filteredRaces = [...allRaces];
+            // Ordenar provas por data (mais recentes primeiro)
+            sortedRaces = sortRacesByDate(allRaces);
             
-            // Calcular e exibir estatísticas
             const stats = calculateStats(allRaces);
             console.log("Estatísticas calculadas:", stats);
             
             renderSummaryCards(stats);
             renderHighlightStats(stats);
-            renderRaces(allRaces);
+            renderRaces();
             updateCharts(allRaces);
             renderAboutSections(allRaces);
             updateAboutText(stats);
             
-            // Carregar apoiadores
             renderSupporters();
             
             console.log("Interface carregada com sucesso!");
@@ -2171,7 +2217,6 @@ function isFirstPlace(placementStr) {
           console.error("Erro ao carregar dados do Firebase:", error);
           showErrorMessage(`Erro ao carregar dados: ${error.message}`);
           
-          // Carregar apoiadores mesmo com erro
           renderSupporters();
         });
     }
@@ -2201,7 +2246,6 @@ function isFirstPlace(placementStr) {
       section.classList.remove('hidden');
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       
-      // Se for a seção de apoiadores, recalcular o carrossel
       if (section === supportersSectionEl) {
         setTimeout(() => {
           setupCarousel();
@@ -2217,6 +2261,7 @@ function isFirstPlace(placementStr) {
     yearFilter.addEventListener('change', filterRaces);
     typeFilter.addEventListener('change', filterRaces);
     podiumFilter.addEventListener('change', filterRaces);
+    loadMoreBtn.addEventListener('click', loadMoreRaces);
     
     resetFiltersBtn.addEventListener('click', () => {
       yearFilter.value = 'all';
@@ -2225,7 +2270,6 @@ function isFirstPlace(placementStr) {
       filterRaces();
     });
     
-    // Eventos para navegação no carrossel
     carouselPrevBtn.addEventListener('click', () => {
       if (currentCarouselPage > 0) {
         goToCarouselPage(currentCarouselPage - 1);
@@ -2236,7 +2280,6 @@ function isFirstPlace(placementStr) {
       goToCarouselPage(currentCarouselPage + 1);
     });
     
-    // Detectar rolagem do carrossel
     supportersCarouselEl.addEventListener('scroll', () => {
       const items = supportersCarouselEl.children;
       if (items.length === 0) return;
@@ -2254,14 +2297,12 @@ function isFirstPlace(placementStr) {
       }
     });
     
-    // Redimensionar janela
     window.addEventListener('resize', () => {
       if (!supportersSectionEl.classList.contains('hidden')) {
         setupCarousel();
       }
     });
     
-    // Eventos para mostrar seções
     statisticsBtn.addEventListener('click', (e) => {
       e.preventDefault();
       showSection(expandedStatsEl);
@@ -2272,7 +2313,7 @@ function isFirstPlace(placementStr) {
       showSection(supportersSectionEl);
     });
 
-     aboutBtn.addEventListener('click', (e) => {
+    aboutBtn.addEventListener('click', (e) => {
       e.preventDefault();
       showSection(aboutSectionEl);
     });
@@ -2292,12 +2333,10 @@ function isFirstPlace(placementStr) {
       showSection(aboutSectionEl);
     });
     
-    // Eventos para fechar seções
     closeStatsBtn.addEventListener('click', () => hideSection(expandedStatsEl));
     closeSupportersBtn.addEventListener('click', () => hideSection(supportersSectionEl));
     closeAboutBtn.addEventListener('click', () => hideSection(aboutSectionEl));
 
-    // Fechar seções ao clicar fora
     expandedStatsEl.addEventListener('click', (e) => {
       if (e.target === expandedStatsEl) hideSection(expandedStatsEl);
     });
@@ -2310,7 +2349,6 @@ function isFirstPlace(placementStr) {
       if (e.target === aboutSectionEl) hideSection(aboutSectionEl);
     });
 
-    // Inicializar quando o DOM estiver carregado
     document.addEventListener('DOMContentLoaded', () => {
       console.log("DOM carregado, iniciando carregamento de dados...");
       try {
