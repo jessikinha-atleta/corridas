@@ -702,10 +702,23 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
     }
 
-    .race-image {
-      height: 200px;
+    .race-image-container {
+      position: relative;
       width: 100%;
+      height: 200px;
+      overflow: hidden;
+      background-color: #f0f0f0;
+    }
+
+    .race-image {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .race-card:hover .race-image {
+      transform: scale(1.05);
     }
 
     .race-content {
@@ -1428,6 +1441,43 @@
     // Inicializar gráficos
     let yearlyChart, podiumChart;
 
+    // Função para normalizar URL do Google Drive
+    function normalizeGoogleDriveImage(url) {
+      if (!url) return "";
+      try {
+        url = url.trim();
+        if (url.includes("/file/d/")) {
+          const id = url.split("/file/d/")[1].split("/")[0];
+          return `https://lh3.googleusercontent.com/d/${id}`;
+        }
+        if (url.includes("drive.google.com/open?id=")) {
+          const id = url.split('id=')[1].split('&')[0];
+          return `https://lh3.googleusercontent.com/d/${id}`;
+        }
+        if (url.includes("lh3.googleusercontent.com/d/")) return url;
+        return url;
+      } catch (e) {
+        return '';
+      }
+    }
+
+    // Função para converter imagePosition em estilo object-position
+    function getImagePositionStyle(imagePosition) {
+      if (!imagePosition) return 'center center';
+      
+      // Se for string com porcentagem (ex: "75%")
+      if (typeof imagePosition === 'string' && imagePosition.includes('%')) {
+        return `center ${imagePosition}`;
+      }
+      
+      // Mapear valores antigos
+      if (imagePosition === 'top') return 'center 100%';
+      if (imagePosition === 'center') return 'center center';
+      if (imagePosition === 'bottom') return 'center 0%';
+      
+      return 'center center';
+    }
+
     // Função para calcular idade com base na data de nascimento
     function calcularIdade(dataNascimento) {
       const hoje = new Date();
@@ -1691,19 +1741,19 @@
       }
     }
 
-// Função para ordenar provas (mais antigas primeiro, para depois inverter)
-function sortRacesByDate(races) {
-  // Primeiro ordena da mais antiga para a mais nova
-  const sorted = [...races].sort((a, b) => {
-    const dateA = getComparableDate(a.data);
-    const dateB = getComparableDate(b.data);
-    return dateA.localeCompare(dateB); // Mais antiga primeiro
-  });
-  
-  // Depois inverte para que a mais recente fique no início do array
-  // Quando o grid renderizar, a mais recente (índice 0) virá primeiro
-  return sorted.reverse();
-}
+    // Função para ordenar provas (mais antigas primeiro, para depois inverter)
+    function sortRacesByDate(races) {
+      // Primeiro ordena da mais antiga para a mais nova
+      const sorted = [...races].sort((a, b) => {
+        const dateA = getComparableDate(a.data);
+        const dateB = getComparableDate(b.data);
+        return dateA.localeCompare(dateB); // Mais antiga primeiro
+      });
+      
+      // Depois inverte para que a mais recente fique no início do array
+      // Quando o grid renderizar, a mais recente (índice 0) virá primeiro
+      return sorted.reverse();
+    }
 
     // Função para renderizar provas com paginação
     function renderRaces() {
@@ -1730,17 +1780,23 @@ function sortRacesByDate(races) {
         else if (position === 4) podiumClass = 'podium4';
         else if (position === 5) podiumClass = 'podium5';
         
-        const imageUrl = race.imagemUrl || 
-                        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80';
+        // Normalizar URL da imagem
+        let imageUrl = race.imagemUrl || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80';
+        imageUrl = normalizeGoogleDriveImage(imageUrl);
+        
+        // Obter estilo de posicionamento da imagem
+        const imagePositionStyle = getImagePositionStyle(race.imagePosition);
         
         const raceIcon = raceType === 'rua' ? 'fa-road' : 'fa-mountain';
         const raceTypeText = raceType === 'rua' ? 'Corrida de Rua' : 'Trail Run';
         
         racesHTML += `
           <div class="race-card" data-type="${raceType}" data-year="${extractYear(race.data)}">
-            <img src="${imageUrl}" alt="${race.evento}" class="race-image" loading="lazy">
+            <div class="race-image-container">
+              <img src="${imageUrl}" alt="${race.evento}" class="race-image" loading="lazy" style="object-position: ${imagePositionStyle};">
+            </div>
             <div class="race-content">
-              <h3 class="race-title">${race.evento || 'Corrida'}</h3>
+              <h3 class="race-title">${escapeHtml(race.evento) || 'Corrida'}</h3>
               <div class="race-meta">
                 <div class="meta-item">
                   <i class="fas fa-calendar-alt"></i>
@@ -1748,7 +1804,7 @@ function sortRacesByDate(races) {
                 </div>
                 <div class="meta-item">
                   <i class="fas fa-map-marker-alt"></i>
-                  <span>${race.cidade || 'Local não informado'}</span>
+                  <span>${escapeHtml(race.cidade) || 'Local não informado'}</span>
                 </div>
                 <div class="meta-item">
                   <i class="fas ${raceIcon}"></i>
@@ -1788,6 +1844,14 @@ function sortRacesByDate(races) {
       }
     }
 
+    // Função auxiliar para escapar HTML
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
     // Função para carregar mais provas
     function loadMoreRaces() {
       currentDisplayCount += 20;
@@ -1809,7 +1873,7 @@ function sortRacesByDate(races) {
           notableHTML += `
             <div class="achievement-item">
               <div class="achievement-info">
-                <h4>${race.evento || 'Corrida'}</h4>
+                <h4>${escapeHtml(race.evento) || 'Corrida'}</h4>
                 <div class="achievement-meta">
                   <span>${race.distancia || '0K'}</span>
                   <span>${race.data || 'Data não informada'}</span>
@@ -1832,7 +1896,7 @@ function sortRacesByDate(races) {
           internationalHTML += `
             <div class="achievement-item">
               <div class="achievement-info">
-                <h4>${race.evento || 'Corrida Internacional'}</h4>
+                <h4>${escapeHtml(race.evento) || 'Corrida Internacional'}</h4>
                 <div class="achievement-meta">
                   <span>${race.distancia || '0K'}</span>
                   <span>${race.data || 'Data não informada'}</span>
@@ -1855,7 +1919,7 @@ function sortRacesByDate(races) {
           firstPlaceHTML += `
             <div class="achievement-item">
               <div class="achievement-info">
-                <h4>${race.evento || 'Corrida'}</h4>
+                <h4>${escapeHtml(race.evento) || 'Corrida'}</h4>
                 <div class="achievement-meta">
                   <span>${race.distancia || '0K'}</span>
                   <span>${race.data || 'Data não informada'}</span>
