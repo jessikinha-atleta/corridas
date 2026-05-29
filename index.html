@@ -1520,27 +1520,44 @@
       return new Date().getFullYear().toString();
     }
 
-    // Função para extrair data comparável (ordenação correta)
-    function getComparableDate(dateString) {
-      if (!dateString) return '0000-00-00';
-      
-      // Tentar formato DD/MM/AAAA
-      const slashMatch = dateString.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-      if (slashMatch) {
+// Função para extrair data comparável (ordenação correta) - CORRIGIDA
+function getComparableDate(dateString) {
+    if (!dateString) return '0000-12-31'; // Mudado para final do ano para datas vazias
+    
+    // Tentar formato DD/MM/AAAA
+    const slashMatch = dateString.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+    if (slashMatch) {
         const day = slashMatch[1].padStart(2, '0');
         const month = slashMatch[2].padStart(2, '0');
         const year = slashMatch[3];
         return `${year}-${month}-${day}`;
-      }
-      
-      // Tentar extrair apenas o ano
-      const yearMatch = dateString.match(/(\d{4})/);
-      if (yearMatch) {
-        return `${yearMatch[1]}-00-00`;
-      }
-      
-      return '0000-00-00';
     }
+    
+    // Tentar formato DD-MM-AAAA
+    const dashMatch = dateString.match(/(\d{1,2})-(\d{1,2})-(\d{4})/);
+    if (dashMatch) {
+        const day = dashMatch[1].padStart(2, '0');
+        const month = dashMatch[2].padStart(2, '0');
+        const year = dashMatch[3];
+        return `${year}-${month}-${day}`;
+    }
+    
+    // Tentar formato AAAA-MM-DD (já no padrão)
+    const isoMatch = dateString.match(/(\d{4})-(\d{2})-(\d{2})/);
+    if (isoMatch) {
+        return dateString;
+    }
+    
+    // Tentar extrair apenas o ano (menos preciso, mas é o que temos)
+    const yearMatch = dateString.match(/(\d{4})/);
+    if (yearMatch) {
+        // Coloca no meio do ano (01-07) como fallback
+        return `${yearMatch[1]}-07-01`;
+    }
+    
+    console.warn('Formato de data não reconhecido:', dateString);
+    return '0000-12-31';
+}
 
     function parseDistance(distanceStr) {
       if (!distanceStr) return 0;
@@ -1741,19 +1758,31 @@
       }
     }
 
-    // Função para ordenar provas (mais antigas primeiro, para depois inverter)
-    function sortRacesByDate(races) {
-      // Primeiro ordena da mais antiga para a mais nova
-      const sorted = [...races].sort((a, b) => {
+// Função para ordenar provas (mais recentes primeiro) - CORRIGIDA
+function sortRacesByDate(races) {
+    // Primeiro ordena da mais recente para a mais antiga diretamente
+    const sorted = [...races].sort((a, b) => {
         const dateA = getComparableDate(a.data);
         const dateB = getComparableDate(b.data);
-        return dateA.localeCompare(dateB); // Mais antiga primeiro
-      });
-      
-      // Depois inverte para que a mais recente fique no início do array
-      // Quando o grid renderizar, a mais recente (índice 0) virá primeiro
-      return sorted.reverse();
+        
+        // Ordem decrescente: mais recente primeiro
+        // Se dateA > dateB, a deve vir antes (retorna negativo)
+        // Se dateA < dateB, b deve vir antes (retorna positivo)
+        if (dateA > dateB) return -1;
+        if (dateA < dateB) return 1;
+        return 0;
+    });
+    
+    // Log para debug - mostrar as primeiras datas
+    if (sorted.length > 0) {
+        console.log('=== ORDEM DAS PROVAS (mais recentes primeiro) ===');
+        for (let i = 0; i < Math.min(10, sorted.length); i++) {
+            console.log(`${i+1}. ${sorted[i].evento} - Data: ${sorted[i].data} (comparável: ${getComparableDate(sorted[i].data)})`);
+        }
     }
+    
+    return sorted;
+}
 
     // Função para renderizar provas com paginação
     function renderRaces() {
