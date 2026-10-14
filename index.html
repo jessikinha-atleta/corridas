@@ -1522,7 +1522,26 @@
 
 // Função para extrair data comparável (ordenação correta) - CORRIGIDA
 function getComparableDate(dateString) {
-    if (!dateString) return '0000-12-31'; // Mudado para final do ano para datas vazias
+    if (!dateString) return '0000-12-31';
+    
+    const months = {
+        'janeiro': '01', 'fevereiro': '02', 'março': '03', 'marco': '03', 'abril': '04',
+        'maio': '05', 'junho': '06', 'julho': '07', 'agosto': '08',
+        'setembro': '09', 'outubro': '10', 'novembro': '11', 'dezembro': '12'
+    };
+    
+    const lower = dateString.toString().toLowerCase().trim();
+    
+    // Formato "Mês/Ano" em português (ex: "Março/2026", "Dezembro/2025")
+    const monthYearMatch = lower.match(/([a-zç]+)\s*\/\s*(\d{4})/);
+    if (monthYearMatch) {
+        const monthName = monthYearMatch[1];
+        const year = monthYearMatch[2];
+        const monthNum = months[monthName];
+        if (monthNum) {
+            return `${year}-${monthNum}-01`;
+        }
+    }
     
     // Tentar formato DD/MM/AAAA
     const slashMatch = dateString.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
@@ -1548,17 +1567,15 @@ function getComparableDate(dateString) {
         return dateString;
     }
     
-    // Tentar extrair apenas o ano (menos preciso, mas é o que temos)
+    // Fallback: apenas o ano
     const yearMatch = dateString.match(/(\d{4})/);
     if (yearMatch) {
-        // Coloca no meio do ano (01-07) como fallback
         return `${yearMatch[1]}-07-01`;
     }
     
     console.warn('Formato de data não reconhecido:', dateString);
     return '0000-12-31';
 }
-
     function parseDistance(distanceStr) {
       if (!distanceStr) return 0;
       const cleaned = distanceStr.toString().replace('K', '').replace(',', '.').trim();
